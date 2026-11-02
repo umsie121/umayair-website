@@ -1,0 +1,18 @@
+/* The wordmark (see wordmark.js). Sizes come from font-size on the element; everything else is in em. */
+.wm { --beat: 3.2s; --ink-c: currentColor; --dot-c: #ff5e7a; position: relative; display: inline-block; font-family: 'Inter Tight', system-ui, sans-serif; font-weight: 600; letter-spacing: -.055em; line-height: 1; white-space: nowrap; }
+.wm__word { position: relative; display: inline-flex; align-items: baseline; }
+.wm__clip { position: relative; display: inline-block; overflow: hidden; padding: .42em .02em .26em; margin: -.42em -.02em -.26em; }
+.wm__l { display: inline-block; }
+.wm__dot { position: absolute; left: 0; top: 0; z-index: 1; width: .19em; height: .19em; margin: -.095em 0 0 -.095em; border-radius: 50%; background: var(--dot-c); box-shadow: 0 0 .25em rgba(255, 94, 122, .6); }
+.wm__base-probe { display: inline-block; width: 0; height: 0; vertical-align: baseline; }
+.wm__ecg { position: absolute; top: 0; height: 100%; overflow: visible; pointer-events: none; }
+.wm__ecg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.wm__base { stroke: var(--dot-c); stroke-width: .045em; opacity: 0; }
+.wm__pulse { stroke: var(--dot-c); stroke-width: .05em; stroke-dasharray: 70 1400; stroke-dashoffset: 70; opacity: .9; filter: drop-shadow(0 0 .08em rgba(255, 94, 122, .9)); animation: wmSweep var(--beat) cubic-bezier(.45, .1, .55, .9) infinite; }
+.wm__dot { animation: wmDot var(--beat) linear var(--peak, 1s) infinite; }
+@keyframes wmSweep { from { stroke-dashoffset: 70; } 60%, to { stroke-dashoffset: -1340; } }
+@keyframes wmDot { 0% { transform: scale(1.9); background: #ffc94a; } 8% { transform: scale(.9); } 13% { transform: scale(1.35); background: var(--dot-c); } 22%, 100% { transform: scale(1); } }
+.wm.is-intro .wm__pulse { opacity: 0; animation: none; }
+.wm.is-intro .wm__dot { animation: none; }
+.wm.is-intro .wm__base { stroke: url(#wmGrad); stroke-width: .05em; filter: drop-shadow(0 0 .12em rgba(255, 94, 122, .6)); }
+@media (prefers-reduced-motion: reduce) { .wm__pulse { display: none; } .wm__dot { animation: none; } }

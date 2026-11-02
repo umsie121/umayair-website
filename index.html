@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Umayair — Doctor, Designer, Founder</title>
+  <meta name="description" content="Umayair is a 27-year-old London doctor turned designer and co-founder of Odjo. Brand identity, illustration, 3D product design and AI products." />
+  <meta name="theme-color" content="#07070b" />
+  <meta property="og:title" content="Umayair — Doctor, Designer, Founder" />
+  <meta property="og:description" content="London doctor turned designer. Co-founder of Odjo." />
+  <meta property="og:image" content="https://umayair.com/assets/work/eden-1.webp" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237b5cff'/%3E%3Cstop offset='.5' stop-color='%23ff5e7a'/%3E%3Cstop offset='1' stop-color='%23ffc94a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='%2307070b'/%3E%3Cpath d='M8 36h12l5-14 8 26 6-18 4 6h13' fill='none' stroke='url(%23g)' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="wordmark.css?v=44" />
+  <link rel="stylesheet" href="styles.css?v=44" />
+</head>
+<body>
+  <!-- Preloader: a heartbeat whose peak becomes the dot of the i -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <linearGradient id="wmGrad" x1="0" x2="1"><stop offset="0" stop-color="#7b5cff" /><stop offset=".5" stop-color="#ff5e7a" /><stop offset="1" stop-color="#ffc94a" /></linearGradient>
+    </defs></svg>
+    <span class="loader__wm" data-wordmark="intro" data-lead="1.4"></span>
+    <div class="loader__meta">
+      <span class="mono">Umayair</span>
+      <span class="mono loader__count"><span id="loaderCount">000</span>%</span>
+    </div>
+    <div class="loader__words mono"><span>Sketching</span><span>Modelling</span><span>Building</span></div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><div class="cursor__ring"><span class="cursor__label">View</span></div><div class="cursor__dot"></div></div>
+  <div class="preview" aria-hidden="true"><div class="preview__inner"></div></div>
+
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__logo magnetic" data-cursor="hover" aria-label="Back to top">
+      <span data-wordmark="nav" data-lead="0.3"></span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#work" data-cursor="hover">Work</a>
+      <a href="#about" data-cursor="hover">About</a>
+      <a href="#journey" data-cursor="hover">Journey</a>
+      <a href="#now" data-cursor="hover">Now</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__clock mono"><i class="pulse-dot"></i><span data-clock>London --:--</span></span>
+      <a href="#contact" class="btn btn--small magnetic" data-cursor="hover"><span>Say hello</span></a>
+    </div>
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <div class="menu" id="menu" aria-hidden="true">
+    <nav>
+      <a href="#work"><span class="mono">01</span>Work</a>
+      <a href="#about"><span class="mono">02</span>About</a>
+      <a href="#journey"><span class="mono">03</span>Journey</a>
+      <a href="#now"><span class="mono">04</span>Now</a>
+      <a href="#contact"><span class="mono">05</span>Contact</a>
+    </nav>
+    <div class="menu__foot mono"><a href="mailto:info@umayair.com">info@umayair.com</a><a href="https://www.instagram.com/umayaircreates" target="_blank" rel="noopener">@umayaircreates</a></div>
+  </div>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <canvas class="hero__gl" id="gl"></canvas>
+      <div class="hero__fade"></div>
+      <div class="hero__inner">
+        <p class="hero__eyebrow mono reveal-up"><span class="pulse-dot"></span><span id="greeting">Hello</span> from London. Currently building <a href="#now" data-cursor="hover">Odjo</a></p>
+        <h1 class="hero__title" aria-label="Umayair">
+          <span class="hero__line"><span class="split-chars">Umayair</span></span>
+        </h1>
+        <div class="hero__sub">
+          <p class="hero__role">
+            <span class="serif-i">Doctor</span>
+            <svg class="hero__ecg" viewBox="0 0 120 30" aria-hidden="true"><path class="ecg-base" d="M0 15h40l6-11 8 22 6-14 4 3h56" /><path class="ecg-pulse" d="M0 15h40l6-11 8 22 6-14 4 3h56" /></svg>
+            <span class="serif-i">Designer</span>
+            <span class="hero__pair"><span class="hero__amp">&amp;</span> <span class="serif-i">Founder</span></span>
+          </p>
+          <p class="hero__lede reveal-up">27, London. Studied medicine, worked as a doctor for two years, then co-founded Odjo, an AI front desk for small businesses. Alongside it all: brands, illustrations and 3D products.</p>
+        </div>
+      </div>
+      <div class="hero__bottom">
+        <a href="#work" class="hero__scroll mono" data-cursor="hover"><span class="hero__scroll-line"></span>Scroll to explore</a>
+        <div class="hero__stats mono">
+          <span><b id="projectCount">16</b> projects</span>
+          <span><b>2</b> careers, so far</span>
+          <span><b>1</b> startup</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Brand identity</span><i>✦</i><span>Illustration</span><i>✦</i><span>3D product</span><i>✦</i><span>AI products</span><i>✦</i><span>Community</span><i>✦</i>
+        <span>Brand identity</span><i>✦</i><span>Illustration</span><i>✦</i><span>3D product</span><i>✦</i><span>AI products</span><i>✦</i><span>Community</span><i>✦</i>
+      </div>
+    </section>
+
+    <!-- MANIFESTO -->
+    <section class="manifesto" id="about">
+      <p class="label mono"><span>(01)</span> About</p>
+      <p class="manifesto__text split-words">Six years of medical school, and most evenings in Illustrator. These days I make brands, illustrations, 3D products and software.</p>
+      <div class="about">
+        <figure class="about__portrait tilt" data-cursor="hover">
+          <img src="assets/work/submissions-illustrations-5.webp" alt="Self-portrait illustration of Umayair from The Submissions Podcast series" loading="lazy" />
+          <figcaption class="mono">Self-portrait · Submissions series</figcaption>
+        </figure>
+        <div class="about__copy">
+          <p>I'm <strong>Umayair</strong>, <strong>27</strong>, from London. I trained as a doctor at <strong>King's College London</strong>, took a year at <strong>Imperial College Business School</strong>, and designed alongside it the whole way through, building identities for student societies, charities, caterers and start-ups.</p>
+          <p>Along the way I led the <strong>KCL Bangladesh Society</strong>, co-founded <strong>KCLevate</strong> (an outreach programme for students applying to Medicine, Dentistry and Law), started <strong>The Submissions Podcast</strong> to share the stories of Muslims, ran a creative agency and supported Charity Week across London's universities.</p>
+          <p>Now I'm a co-founder of <strong>Odjo</strong>, an AI front desk. It answers a business's calls, messages and emails, day and night, and books, triages or passes each one on.</p>
+          <ul class="chips mono">
+            <li>Brand identity</li><li>Logo design</li><li>Illustration</li><li>3D &amp; product</li><li>UI / UX</li><li>AI products</li><li>Community building</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED WORK: horizontal scroll -->
+    <section class="work" id="work">
+      <div class="work__head">
+        <p class="label mono"><span>(02)</span> Selected work</p>
+        <h2 class="display">Things I've <span class="serif-i grad-text">made</span></h2>
+      </div>
+      <div class="hscroll" id="hscroll">
+        <div class="hscroll__track" id="hscrollTrack"></div>
+      </div>
+    </section>
+
+    <!-- INDEX -->
+    <section class="index" id="index">
+      <div class="index__head">
+        <p class="label mono"><span>(03)</span> Full archive</p>
+        <p class="index__count mono"><span id="indexCount">00</span> projects</p>
+      </div>
+      <ol class="index__list" id="indexList"></ol>
+    </section>
+
+    <!-- SKETCHBOOK (Instagram, hosted natively) -->
+    <section class="sketch" id="sketchbook">
+      <div class="sketch__head">
+        <div>
+          <p class="label mono"><span>(04)</span> Sketchbook</p>
+          <h2 class="display">Made for <span class="serif-i grad-text">the fun of it</span></h2>
+        </div>
+        <div class="sketch__aside">
+          <p>Late-night iPad drawings, Procreate experiments and the odd photo, first posted on Instagram and kept here.</p>
+          <a class="btn btn--ghost magnetic" href="https://www.instagram.com/umayaircreates/" target="_blank" rel="noopener" data-cursor="hover"><span>@umayaircreates ↗</span></a>
+        </div>
+      </div>
+      <div class="sketch__grid" id="sketchGrid"></div>
+    </section>
+
+    <!-- CAPABILITIES -->
+    <section class="caps">
+      <p class="label mono"><span>(05)</span> What I do</p>
+      <div class="caps__grid">
+        <article class="cap tilt" data-cursor="hover" style="--c1:#7b5cff;--c2:#ff5e7a">
+          <span class="cap__n mono">A</span>
+          <h3>Brand identity</h3>
+          <p>Logos and identities for societies, charities and small businesses. A shapla flower, a DNA strand made of circuit traces, two hands that form an S.</p>
+        </article>
+        <article class="cap tilt" data-cursor="hover" style="--c1:#ffc94a;--c2:#ff8a3d">
+          <span class="cap__n mono">B</span>
+          <h3>Illustration</h3>
+          <p>Flat, character-led illustration. The Submissions portraits use five colours each and no faces.</p>
+        </article>
+        <article class="cap tilt" data-cursor="hover" style="--c1:#18c5a8;--c2:#2f7bff">
+          <span class="cap__n mono">C</span>
+          <h3>3D &amp; product</h3>
+          <p>Concept products modelled from scratch, like the Eden plant probe: the object, the packaging and the brand.</p>
+        </article>
+        <article class="cap tilt" data-cursor="hover" style="--c1:#ff5e7a;--c2:#7b5cff">
+          <span class="cap__n mono">D</span>
+          <h3>AI products</h3>
+          <p>At Odjo I work on the product, the brand and getting it in front of customers.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- JOURNEY -->
+    <section class="journey" id="journey">
+      <div class="journey__head">
+        <p class="label mono"><span>(06)</span> Journey</p>
+        <h2 class="display">How I <span class="serif-i grad-text">got here</span></h2>
+      </div>
+      <div class="journey__body">
+        <svg class="journey__line" viewBox="0 0 4 1000" preserveAspectRatio="none" aria-hidden="true"><line x1="2" y1="0" x2="2" y2="1000" /></svg>
+        <ol class="journey__list">
+          <li><span class="journey__year mono">2017</span><div><h3>Medical school</h3><p>Started Medicine at King's College London, and started taking on design work alongside it.</p></div></li>
+          <li><span class="journey__year mono">2018</span><div><h3>Trustee and Maa</h3><p>Elected one of four student trustees of King's College London Students' Union. Started volunteering with Maa, a maternal health charity.</p></div></li>
+          <li><span class="journey__year mono">2019</span><div><h3>Bangladesh and KCLevate</h3><p>Ran antenatal screening camps in rural Bangladesh with Maa. Co-founded KCLevate, a mentoring programme for sixth-formers in east London.</p></div></li>
+          <li><span class="journey__year mono">2020</span><div><h3>Imperial, a podcast, Arabic</h3><p>Took a year out for a BSc in Management at Imperial College Business School. Started The Submissions Podcast, and started teaching Arabic online.</p></div></li>
+          <li><span class="journey__year mono">2023</span><div><h3>Doctor</h3><p>Qualified from King's and worked as a resident doctor at two London hospital trusts until 2025.</p></div></li>
+          <li><span class="journey__year mono">2024</span><div><h3>Learning 3D</h3><p>Eden, a smart plant probe I modelled in 3D and gave a brand and packaging.</p></div></li>
+          <li class="is-now"><span class="journey__year mono">Now</span><div><h3>Co-founder, Odjo</h3><p>Building Odjo, an AI front desk that answers every call and message a business gets, and puts each one on the right record.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- BEYOND DESIGN: charity, community, medicine, recognition -->
+    <section class="beyond" id="beyond">
+      <div class="beyond__head">
+        <p class="label mono"><span>(07)</span> Beyond design</p>
+        <h2 class="display">Other things <span class="serif-i grad-text">I've built</span></h2>
+        <p class="beyond__lede">Teams, campaigns and programmes, mostly alongside medical school. None of these were design jobs, but they’re where I learned most of what I know about running things.</p>
+      </div>
+
+      <article class="maa">
+        <div class="maa__copy">
+          <p class="mono maa__tag">Maa · Maternal health charity · 2018 – 2021</p>
+          <h3>Making the scoreboard visible</h3>
+          <p>I was elected National Coordinator for MaaMonth, Maa’s yearly fundraising race between university societies. It ran across 26 universities for four weeks, and it had a problem: totals were only revealed at the end, so halfway through nobody knew if they were winning, and momentum died.</p>
+          <p>So every morning, every society got a ranked table of where everyone stood. The rivalries did the rest: teams that slipped ran emergency bake sales, and teams at the top campaigned harder to stay there. We raised more than <strong>£30,000 in four weeks</strong>, a record for the charity at the time. The format stuck. Universities still compete to be MaaMonth Champion, and the campaign has since passed £60,000.</p>
+          <p>In 2019 I flew to Bangladesh with JourneyMaa, the charity’s field project, running antenatal screening camps that saw more than 400 pregnant women in remote villages, and leading menstrual health workshops for teenage girls in Bangla.</p>
+          <p>For a year I hosted <a href="https://podnews.net/podcast/iw0j5" target="_blank" rel="noopener" data-cursor="hover">Maa’s The Word ↗</a>, the charity’s global health podcast, and helped build it: interviews with global health experts, campaigners and people changing things in their communities.</p>
+        </div>
+        <div class="maa__side">
+          <div class="board" aria-label="Illustration of a daily fundraising leaderboard">
+            <p class="mono board__head"><span>MaaMonth · Day <b id="boardDay">1</b></span><span>Live table</span></p>
+            <ol id="board"></ol>
+            <p class="mono board__note">Illustration. Real totals stayed with the societies.</p>
+          </div>
+          <a class="maa__pod" href="https://podnews.net/podcast/iw0j5" target="_blank" rel="noopener" data-cursor="hover">
+            <img src="assets/story/maa-the-word.webp" alt="Maa's The Word podcast cover" loading="lazy" />
+            <span><b>Maa’s The Word</b><span class="mono">Host · 2021 – 2022</span></span>
+          </a>
+        </div>
+      </article>
+
+      <div class="beyond__grid">
+        <article class="bcard tilt" data-cursor="hover" style="--c1:#ffc94a;--c2:#ff8a3d">
+          <p class="mono">Founder · 2020 – 2024</p>
+          <h3>The Submissions Podcast</h3>
+          <p>Started and ran a storytelling podcast with a team of seven volunteers. 24 episodes, listeners in 79 countries, a Spotify Ramadan Recommendation and a live show.</p>
+          <a class="mono bcard__link" href="submissions.html">Read the case study →</a>
+        </article>
+        <article class="bcard tilt" data-cursor="hover" style="--c1:#7a2462;--c2:#ff5e7a">
+          <p class="mono">Co-founder · 2019 – 2023</p>
+          <h3>KCLevate</h3>
+          <p>A year-long mentoring programme for Year 12 students in Tower Hamlets and Newham applying to Medicine, Dentistry and Law. About 45 mentees a cohort, 200+ so far. I secured the funding that made it self-sustaining, and it still runs.</p>
+        </article>
+        <article class="bcard tilt" data-cursor="hover" style="--c1:#18c5a8;--c2:#2f7bff">
+          <p class="mono">Resident doctor · 2023 – 2025</p>
+          <h3>The NHS</h3>
+          <p>Worked at two London hospital trusts and was elected rep for 80+ resident doctors. Founded the Digital Informatics Society at Barts Health, which produced training on clinical systems and note-taking used across the Trust.</p>
+        </article>
+        <article class="bcard tilt" data-cursor="hover" style="--c1:#7b5cff;--c2:#18c5a8">
+          <p class="mono">Teacher · 2020 – 2023</p>
+          <h3>Arabic, online</h3>
+          <p>Taught weekly Arabic classes to more than 50 adult students in the UK, USA, Nigeria and Spain, three years after learning the language from scratch.</p>
+        </article>
+        <article class="bcard tilt" data-cursor="hover" style="--c1:#ff5e7a;--c2:#ffc94a">
+          <p class="mono">Student trustee · 2018 – 2019</p>
+          <h3>KCL Students’ Union</h3>
+          <p>Elected as one of four student trustees, from more than 30 applicants, for a union of 30,000+ students. Led the push for more inclusive events, which raised attendance from under-represented groups by 40%.</p>
+        </article>
+      </div>
+
+      <div class="honours">
+        <div>
+          <p class="mono honours__h">Awards</p>
+          <ul>
+            <li><span>Certificate of Merit, Clinical Excellence</span><i class="mono">London Foundation School · 2024</i></li>
+            <li><span>Certificate of Merit, Leadership</span><i class="mono">London Foundation School · 2024</i></li>
+            <li><span>Treasurer’s Prize</span><i class="mono">King’s College London School of Medical Education · 2021</i></li>
+            <li><span>Silver Crown Award, for founding and leading KCLevate</span><i class="mono">KCL Students’ Union · 2020</i></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mono honours__h">Published papers</p>
+          <ul>
+            <li><span>Is Bangladesh ready to adopt breast-conserving surgery? A tertiary cancer centre’s experience</span><i class="mono">European Journal of Surgical Oncology · 2023</i></li>
+            <li><span>What are the barriers and facilitators to seeking help for mental health in NHS doctors: a systematic review and qualitative study</span><i class="mono">BMC Psychiatry · 2022</i></li>
+            <li><span>Cost-utility analysis of oxybutynin vs. OnabotulinumtoxinA (Botox) in the treatment of overactive bladder syndrome</span><i class="mono">Int. J. Environmental Research and Public Health · 2021</i></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKSHOP (3D print log from the Family Frame) -->
+    <section class="shop" id="workshop">
+      <div class="shop__head">
+        <p class="label mono"><span>(08)</span> Workshop</p>
+        <h2 class="display">Made, <span class="serif-i grad-text">not bought</span></h2>
+        <p class="shop__lede">Every successful print off my Bambu Lab printer since <span id="shopSince">August</span>, logged by my <a href="#/work/frame" data-cursor="hover">Family Frame</a>. Clickers, stands, a T-Rex skull, and fixes for things around the house.</p>
+      </div>
+      <dl class="shop__stats" id="shopStats"></dl>
+      <div class="shop__bars" id="shopBars" aria-hidden="true"></div>
+      <div class="shop__filters" id="shopFilters" role="group" aria-label="Filter prints"></div>
+      <ol class="shop__grid" id="shopGrid"></ol>
+    </section>
+
+    <!-- NOW -->
+    <section class="now" id="now">
+      <div class="now__card" data-cursor="hover">
+        <div class="now__glow"></div>
+        <div class="now__top">
+          <p class="label mono"><span>(09)</span> Right now</p>
+          <span class="tag mono"><i class="pulse-dot"></i> Live</span>
+        </div>
+        <h2 class="now__title"><img class="now__mark" src="assets/odjo-mark.webp" alt="Odjo logo" width="64" height="64" />Co-founding <span class="serif-i">Odjo</span></h2>
+        <p class="now__desc">Odjo is an AI front desk. It picks up every call, WhatsApp, web form and email, in more than 20 languages, works out what the person needs, then books them in, flags it as urgent or passes it to the right person. Anything sensitive is drafted for a human to send. It’s live with letting agents, tutoring and exam centres, clinics, accountants and law firms.</p>
+        <div class="now__flow" aria-hidden="true">
+          <div class="flow-step"><span class="mono">01</span>Answer</div>
+          <svg viewBox="0 0 60 10"><path d="M0 5h56" /><path d="M52 1l4 4-4 4" /></svg>
+          <div class="flow-step"><span class="mono">02</span>Understand</div>
+          <svg viewBox="0 0 60 10"><path d="M0 5h56" /><path d="M52 1l4 4-4 4" /></svg>
+          <div class="flow-step"><span class="mono">03</span>Book</div>
+          <svg viewBox="0 0 60 10"><path d="M0 5h56" /><path d="M52 1l4 4-4 4" /></svg>
+          <div class="flow-step"><span class="mono">04</span>File</div>
+        </div>
+        <a class="btn magnetic" href="https://odjoai.com" target="_blank" rel="noopener" data-cursor="hover"><span>Visit Odjo ↗</span></a>
+      </div>
+      <dl class="status mono">
+        <div><dt>Local time</dt><dd data-clock-full>--:--:--</dd></div>
+        <div><dt>Based</dt><dd>London, UK</dd></div>
+        <div><dt>Age</dt><dd>27</dd></div>
+        <div><dt>Day job</dt><dd>Co-founder, Odjo</dd></div>
+        <div><dt>Side build</dt><dd><a href="https://github.com/umsie121/frame" target="_blank" rel="noopener" data-cursor="hover">Family Frame ↗</a></dd></div>
+        <div><dt>Trained as</dt><dd>Doctor · KCL</dd></div>
+        <div><dt>Open to</dt><dd>Brand work &amp; collabs</dd></div>
+      </dl>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <canvas class="contact__gl" id="gl2"></canvas>
+      <div class="contact__inner">
+        <p class="label mono"><span>(10)</span> Contact</p>
+        <h2 class="contact__title"><span class="split-words">Got a project?</span> <span class="serif-i grad-text">Say hello.</span></h2>
+        <div class="contact__actions">
+          <button class="contact__email magnetic" id="copyEmail" data-cursor="hover" data-email="info@umayair.com">
+            <span class="contact__email-text">info@umayair.com</span>
+            <span class="contact__email-hint mono">Click to copy</span>
+          </button>
+          <div class="contact__links">
+            <a class="btn magnetic" href="mailto:info@umayair.com" data-cursor="hover"><span>Email me</span></a>
+            <a class="btn btn--ghost magnetic" href="https://www.instagram.com/umayaircreates" target="_blank" rel="noopener" data-cursor="hover"><span>Instagram ↗</span></a>
+            <a class="btn btn--ghost magnetic" href="https://odjoai.com" target="_blank" rel="noopener" data-cursor="hover"><span>Odjo ↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__big" aria-hidden="true"><span data-wordmark="foot" data-lead="0.2"></span></div>
+    <div class="footer__row mono">
+      <span>© <span id="year">2026</span> Umayair</span>
+      <span>Made in London</span>
+      <span data-clock>London --:--</span>
+      <a href="#top" data-cursor="hover">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Project overlay -->
+  <div class="overlay" id="overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
+    <div class="overlay__bg"></div>
+    <div class="overlay__panel" id="ovPanel" data-lenis-prevent>
+      <button class="overlay__close magnetic" id="ovClose" data-cursor="hover" aria-label="Close project">Close <span>✕</span></button>
+      <div class="overlay__hero">
+        <p class="mono overlay__meta"><span id="ovIdx">01</span> / <span id="ovCat">Identity</span><span id="ovYear"> / 2021</span></p>
+        <h2 id="ovTitle" class="overlay__title">Project</h2>
+      </div>
+      <div class="overlay__body">
+        <div class="overlay__text" id="ovText"></div>
+        <div class="overlay__media" id="ovMedia"></div>
+      </div>
+      <div class="overlay__nav">
+        <button class="mono" id="ovPrev" data-cursor="hover">← Previous</button>
+        <button class="overlay__next" id="ovNext" data-cursor="hover"><span class="mono">Next project</span><span id="ovNextTitle">—</span></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <div class="lightbox" id="lightbox" aria-hidden="true" data-lenis-prevent><button class="lightbox__close mono" id="lbClose" data-cursor="hover">Close ✕</button><figure><img id="lbImg" alt="" /><figcaption><span class="mono" id="lbMeta"></span><p id="lbCap"></p></figcaption></figure></div>
+  <script src="wordmark.js?v=44"></script>
+  <script src="data.js?v=44"></script>
+  <script src="prints.js?v=44"></script>
+  <script src="main.js?v=44"></script>
+</body>
+</html>
