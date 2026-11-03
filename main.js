@@ -20,7 +20,7 @@
     ? `<video src="${p.video.src}" poster="${p.video.poster}" ${reducedMotion() ? '' : 'autoplay'} muted loop playsinline preload="auto" aria-label="${p.title} film"></video>`
     : `<video src="${p.video.src}" poster="${p.video.poster}" muted playsinline preload="auto"${p.video.end ? ` data-end="${p.video.end}"` : ''} aria-label="${p.title} film"></video>`;
   const HOME = location.pathname; // the overlay's case studies push their own path; closing comes back here
-  const STORY_V = 18; // bump with the case-study files so the overlay never shows a stale copy
+  const STORY_V = 19; // bump with the case-study files so the overlay never shows a stale copy
   function reducedMotion() { return matchMedia('(prefers-reduced-motion: reduce)').matches; }
 
   /* ---------------- Text splitting ---------------- */

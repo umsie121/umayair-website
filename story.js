@@ -28,11 +28,11 @@
   const FIGS = [
     'Fig. 1 — The Ka‘bah, as a cube',
     'Fig. 2 — First drafts, 2020',
-    'Fig. 2b — The same draft at 60 pixels',
     'Fig. 3 — Seen from the corner',
     'Fig. 4 — The band becomes a gap',
     'Fig. 5 — The final mark',
-    'Fig. 6 — Three readings of one shape'
+    'Fig. 6 — Three readings of one shape',
+    'Fig. 7 — The final mark at 60 pixels'
   ];
   const frame = $('.stage__frame'), ids = Object.keys(SHAPES.cube);
   const set = (shape, dur) => ids.forEach(id => {
@@ -51,21 +51,21 @@
   const show = i => {
     $('#stageFig').textContent = FIGS[i];
     const dur = reduced ? 0 : 1.2;
-    set(i >= 3 ? 'mark' : 'cube', dur);
-    solid(i >= 4);
-    frame.classList.toggle('is-yellow', i >= 4);
-    // The drafts: fanned out, then the front one critiqued, then shrunk to app-icon size
+    set(i >= 2 ? 'mark' : 'cube', dur);
+    solid(i >= 3);
+    frame.classList.toggle('is-yellow', i >= 3 && i < 6);
+    // The drafts: fanned out, then the front one critiqued. The last step checks the final mark at app-icon size
     $('#stageDrafts').classList.toggle('on', i === 1);
     clearTimeout(critTimer); $('#stageDrafts').classList.remove('is-crit'); $('#crit').classList.remove('on');
     if (i === 1) critTimer = setTimeout(() => { $('#stageDrafts').classList.add('is-crit'); $('#crit').classList.add('on'); }, reduced ? 0 : 1100);
-    $('#small').classList.toggle('on', i === 2);
-    $('.stage__svg').style.opacity = i === 1 || i === 2 ? 0 : 1;
-    $('#noteCorner').classList.toggle('on', i === 3);
-    $('#noteGap').classList.toggle('on', i === 4);
-    $('#stageFinal').classList.toggle('on', i >= 5);
-    $('#readings').classList.toggle('on', i === 6);
+    $('#small').classList.toggle('on', i === 6);
+    $('.stage__svg').style.opacity = i === 1 || i === 6 ? 0 : 1;
+    $('#noteCorner').classList.toggle('on', i === 2);
+    $('#noteGap').classList.toggle('on', i === 3);
+    $('#stageFinal').classList.toggle('on', i === 4 || i === 5);
+    $('#readings').classList.toggle('on', i === 5);
     clearInterval(readTimer);
-    if (i === 6) { // cycle the three readings
+    if (i === 5) { // cycle the three readings
       let r = 0; const tick = () => { $$('.reading').forEach(g => g.classList.toggle('on', +g.dataset.r === r)); r = (r + 1) % 3; };
       tick(); readTimer = setInterval(tick, 2200);
     }

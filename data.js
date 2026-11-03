@@ -42,7 +42,7 @@ window.PROJECTS = [
     tagline: 'A cheap photo frame, taught to run the family’s whole day.',
     colors: ['#3b1d5c', '#e0806a'],
     images: ['frame-1', 'frame-2', 'frame-3', 'frame-4', 'frame-5'],
-    video: { src: 'assets/video/family-frame.mp4', poster: 'assets/video/family-frame-poster.webp', ar: '16/9' },
+    video: { src: 'assets/video/family-frame.mp4', poster: 'assets/video/family-frame-poster.webp', ar: '16/9', end: 50.5 },
     text: [
       'A family display that runs entirely on a Frameo photo frame: 1 GB of RAM, Android 6 and a browser from 2015. There’s no server. It’s mostly photos, with small glass widgets for the time, weather, next prayer, next event and the 3D printer.',
       'Tap it for the calendar, prayer times, Spotify with word-by-word lyrics, and a printer screen that lists each warm-up step. Anyone in the family can send photos to it with a QR code or an iPhone shortcut.',

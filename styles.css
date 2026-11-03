@@ -85,11 +85,10 @@ section { position: relative; }
 .nav.is-hidden { transform: translateY(-100%) !important; }
 .nav__logo { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -.02em; font-size: 19px; }
 
-.nav__links { display: flex; gap: 6px; padding: 5px; border: 1px solid var(--line); border-radius: 99px; background: rgba(255,255,255,.03); }
+.nav__links { position: absolute; left: 50%; translate: -50% 0; display: flex; gap: 6px; padding: 5px; border: 1px solid var(--line); border-radius: 99px; background: rgba(255,255,255,.03); }
 .nav__links a { padding: 7px 16px; border-radius: 99px; font-size: 14px; color: var(--ink-2); transition: color .3s, background .3s; }
 .nav__links a:hover, .nav__links a.active { color: var(--ink); background: rgba(255,255,255,.08); }
 .nav__right { display: flex; align-items: center; gap: 18px; }
-.nav__clock { color: var(--ink-2); display: flex; align-items: center; gap: 8px; }
 .nav__burger { display: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); position: relative; }
 .nav__burger span { position: absolute; left: 13px; right: 13px; height: 1.5px; background: var(--ink); transition: transform .4s var(--ease); }
 .nav__burger span:first-child { top: 18px; } .nav__burger span:last-child { top: 25px; }
@@ -349,7 +348,7 @@ section { position: relative; }
   .now { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {
-  .nav__links, .nav__clock, .nav__right .btn { display: none; }
+  .nav__links, .nav__right .btn { display: none; }
   .nav__burger { display: block; }
   .hero__sub { grid-template-columns: 1fr; gap: 22px; }
   .hero__lede { justify-self: start; }

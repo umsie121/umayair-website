@@ -253,8 +253,8 @@ em { font-family: var(--serif); font-size: 1.12em; }
 .small figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .small figure img { width: 60px; height: 60px; border-radius: 14px; object-fit: cover; }
 .small figcaption { font-size: 10px; color: var(--ink-2); white-space: nowrap; }
-.small__row:not(.small__row--after) figure img { outline: 2px solid #ff3b5c; outline-offset: 4px; }
-.small__row--after figure img { outline: 2px solid #1fa36b; outline-offset: 4px; }
+.small__row:not(.small__row--after) figure img { outline: 2px solid #1fa36b; outline-offset: 4px; }
+.small__row--after figure img { outline: 2px solid #ff3b5c; outline-offset: 4px; }
 .small__row--after { opacity: 0; transform: translateY(10px); transition: opacity .6s 1.4s, transform .6s 1.4s; }
 .small.on .small__row--after { opacity: 1; transform: none; }
 .small__note { margin: 0; max-width: 72%; text-align: center; color: var(--ink-2); font-size: 11px; line-height: 1.6; }
