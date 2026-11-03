@@ -6,6 +6,10 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // The step being read: mid-screen on desktop, just under the pinned figure on phones
+  const PHONE = matchMedia('(max-width: 900px)').matches;
+  const STEP_BAND = PHONE ? '-62% 0px -26% 0px' : '-45% 0px -45% 0px';
+  let playTobfig = () => {};
   const NS = 'http://www.w3.org/2000/svg';
   const E = (tag, a, parent) => { const el = document.createElementNS(NS, tag); for (const k in a) el.setAttribute(k, a[k]); parent.appendChild(el); return el; };
   const PETAL = 'M500,500 Q666,284 500,68 Q334,284 500,500 Z';
@@ -56,14 +60,19 @@
     tl.to('#bsvg', { scale: .5, opacity: 0, duration: .3 }, 8.05).to('#bframe', { backgroundColor: '#e8e3d6', duration: .3 }, 8.05)
       .to('#bsmall', { opacity: 1, duration: .25 }, 8.25).to({}, { duration: .5 }, 8.5);
 
-    ScrollTrigger.create({
+    // Desktop: scrubbed with the scroll. Phones: each step snaps under the figure and its part plays through.
+    if (!PHONE) ScrollTrigger.create({
       trigger: '#mark', start: 'top top', end: 'bottom bottom', scrub: .5,
       onUpdate: st => { tl.progress(st.progress); $('#bfig').textContent = FIGS[Math.min(8, Math.floor(st.progress * 9))]; $('#bsmall').classList.toggle('on', st.progress > .93); }
     });
+    playTobfig = k => {
+      gsap.to(tl, { time: Math.min(tl.duration(), k + 1) - .001, duration: 1.1, ease: 'power2.out', overwrite: true });
+      $('#bfig').textContent = FIGS[k]; $('#bsmall').classList.toggle('on', k === 8);
+    };
     if (reduced) tl.progress(1);
   }
 
-  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && $$('.bstep').forEach(s => s.classList.toggle('is-active', s === e.target))), { rootMargin: '-45% 0px -45% 0px' });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const steps = $$('.bstep'); steps.forEach(s => s.classList.toggle('is-active', s === e.target)); if (PHONE) playTobfig(steps.indexOf(e.target)); }), { rootMargin: STEP_BAND });
   $$('.bstep').forEach(s => io.observe(s));
 
   $$('.spread .h2, .spread .lede, .plate, .hoodie').forEach(el => el.classList.add('reveal'));

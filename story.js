@@ -6,6 +6,10 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // The step being read: mid-screen on desktop, just under the pinned figure on phones
+  const PHONE = matchMedia('(max-width: 900px)').matches;
+  const STEP_BAND = PHONE ? '-62% 0px -26% 0px' : '-45% 0px -45% 0px';
+  let playTopfig = () => {};
 
   // Each face of the cube is three strips: black top, gold band, black body.
   // 'cube' is an isometric view; 'mark' is the flattened corner-on view (measured from the logo).
@@ -70,7 +74,7 @@
   set('cube', 0); show(0);
 
   // Which step is in the middle of the screen
-  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && show(+e.target.dataset.step)), { rootMargin: '-45% 0px -45% 0px' });
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && show(+e.target.dataset.step)), { rootMargin: STEP_BAND });
   $$('.step[data-step]').forEach(s => io.observe(s));
 
 
@@ -133,11 +137,16 @@
     ptl.to(psvg, { scale: .27, yPercent: -15, duration: .5 }, 4.05).to(psvg, { opacity: 0, duration: .05 }, 4.55)
       .fromTo(set, { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .3, stagger: .06 }, 4.3)
       .to({}, { duration: .2 }, 4.8);
-    ScrollTrigger.create({
+    // Desktop: scrubbed with the scroll. Phones: each step snaps under the figure and its part plays through.
+    if (!PHONE) ScrollTrigger.create({
       trigger: '#portraits', start: 'top top', end: 'bottom bottom', scrub: .5,
       onUpdate: st => { ptl.progress(st.progress); $('#pfig').textContent = FIGS[Math.min(4, Math.floor(st.progress * 5))]; }
     });
-    const pio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && $$('.pstep').forEach(s => s.classList.toggle('is-active', s === e.target))), { rootMargin: '-45% 0px -45% 0px' });
+    playTopfig = k => {
+      gsap.to(ptl, { time: Math.min(ptl.duration(), k + 1) - .001, duration: 1.1, ease: 'power2.out', overwrite: true });
+      $('#pfig').textContent = FIGS[k];
+    };
+    const pio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const steps = $$('.pstep'); steps.forEach(s => s.classList.toggle('is-active', s === e.target)); if (PHONE) playTopfig(steps.indexOf(e.target)); }), { rootMargin: STEP_BAND });
     $$('.pstep').forEach(s => pio.observe(s));
   }
 

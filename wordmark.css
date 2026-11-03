@@ -1,7 +1,7 @@
 /* The wordmark (see wordmark.js). Sizes come from font-size on the element; everything else is in em. */
 .wm { --beat: 3.2s; --ink-c: currentColor; --dot-c: #ff5e7a; position: relative; display: inline-block; font-family: 'Inter Tight', system-ui, sans-serif; font-weight: 600; letter-spacing: -.055em; line-height: 1; white-space: nowrap; }
 .wm__word { position: relative; display: inline-flex; align-items: baseline; }
-.wm__clip { position: relative; display: inline-block; overflow: hidden; padding: .42em .02em .26em; margin: -.42em -.02em -.26em; }
+.wm__clip { position: relative; display: inline-block; overflow: hidden; padding: .42em .14em .42em; margin: -.42em -.14em -.42em; }
 .wm__l { display: inline-block; }
 .wm__dot { position: absolute; left: 0; top: 0; z-index: 1; width: .19em; height: .19em; margin: -.095em 0 0 -.095em; border-radius: 50%; background: var(--dot-c); box-shadow: 0 0 .25em rgba(255, 94, 122, .6); }
 .wm__base-probe { display: inline-block; width: 0; height: 0; vertical-align: baseline; }

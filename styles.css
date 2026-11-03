@@ -249,7 +249,7 @@ section { position: relative; }
 .journey__list p { margin: 0; color: var(--ink-2); max-width: 54ch; }
 
 /* ---------- Now ---------- */
-.now { padding: 0 var(--pad) clamp(80px, 10vw, 160px); display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; }
+.now { padding: 0 var(--pad) clamp(80px, 10vw, 160px); display: grid; grid-template-columns: 1fr; gap: 16px; }
 .now__card { position: relative; padding: clamp(28px, 4vw, 60px); border-radius: 28px; overflow: hidden; isolation: isolate; border: 1px solid var(--line); background: #0b0b12; }
 .now__glow { position: absolute; inset: -40%; z-index: -1; background: conic-gradient(from 0deg at 50% 50%, rgba(123,92,255,.55), rgba(255,94,122,.4), rgba(255,201,74,.35), rgba(24,197,168,.35), rgba(123,92,255,.55)); filter: blur(80px); opacity: .55; animation: spin 18s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }

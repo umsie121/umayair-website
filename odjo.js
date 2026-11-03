@@ -6,6 +6,10 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // The step being read: mid-screen on desktop, just under the pinned figure on phones
+  const PHONE = matchMedia('(max-width: 900px)').matches;
+  const STEP_BAND = PHONE ? '-62% 0px -26% 0px' : '-45% 0px -45% 0px';
+  let playToofig = () => {};
   const NS = 'http://www.w3.org/2000/svg';
   const E = (tag, a, parent) => { const el = document.createElementNS(NS, tag); for (const k in a) el.setAttribute(k, a[k]); parent.appendChild(el); return el; };
   const LEAF = 'M418,520 C585,440 620,265 500,123 C380,265 415,440 582,520';
@@ -54,10 +58,15 @@
     tl.to('#osvg', { scale: .4, opacity: 0, duration: .3 }, 7.05).to('#oframe', { backgroundColor: '#e8e3d6', duration: .3 }, 7.05)
       .to('#osmall', { opacity: 1, duration: .25 }, 7.25).to({}, { duration: .5 }, 7.5);
 
-    ScrollTrigger.create({
+    // Desktop: scrubbed with the scroll. Phones: each step snaps under the figure and its part plays through.
+    if (!PHONE) ScrollTrigger.create({
       trigger: '#mark', start: 'top top', end: 'bottom bottom', scrub: .5,
       onUpdate: st => { tl.progress(st.progress); $('#ofig').textContent = FIGS[Math.min(7, Math.floor(st.progress * 8))]; $('#osmall').classList.toggle('on', st.progress > .93); }
     });
+    playToofig = k => {
+      gsap.to(tl, { time: Math.min(tl.duration(), k + 1) - .001, duration: 1.1, ease: 'power2.out', overwrite: true });
+      $('#ofig').textContent = FIGS[k]; $('#osmall').classList.toggle('on', k === 7);
+    };
     if (reduced) tl.progress(1);
   }
 
@@ -93,7 +102,7 @@
     fio.observe($('#fmap'));
   }
 
-  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && $$('.ostep').forEach(s => s.classList.toggle('is-active', s === e.target))), { rootMargin: '-45% 0px -45% 0px' });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; const steps = $$('.ostep'); steps.forEach(s => s.classList.toggle('is-active', s === e.target)); if (PHONE) playToofig(steps.indexOf(e.target)); }), { rootMargin: STEP_BAND });
   $$('.ostep').forEach(s => io.observe(s));
 
   $$('.spread .h2, .spread .lede, .use, .forest__facts > div').forEach(el => el.classList.add('reveal'));
