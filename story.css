@@ -37,7 +37,7 @@ em { font-family: var(--serif); font-size: 1.12em; }
 .bar__back:hover { background: var(--paper-2); }
 
 /* Cover */
-.cover { min-height: 100svh; padding: 120px var(--pad) 60px; display: grid; grid-template-columns: 1.1fr 1fr; grid-template-rows: auto auto 1fr auto; column-gap: 6vw; align-items: end; }
+.cover { min-height: 100svh; padding: 120px var(--pad) 60px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 1fr auto; column-gap: 4vw; align-items: end; }
 .cover__kicker { grid-column: 1; color: var(--ink-3); margin: 0 0 24px; }
 .cover__title { grid-column: 1; margin: 0; font: 400 clamp(72px, 13vw, 220px)/.85 var(--serif); letter-spacing: -.03em; }
 .cover__sub { grid-column: 1; font: 400 clamp(22px, 2.2vw, 32px)/1.25 var(--serif); font-style: italic; max-width: 20ch; margin: 28px 0 0; color: var(--ink-2); }
@@ -46,7 +46,8 @@ em { font-family: var(--serif); font-size: 1.12em; }
 .cover__meta dt { color: var(--ink-3); margin-bottom: 4px; }
 .cover__meta dd { margin: 0; color: var(--ink); display: flex; align-items: center; gap: 6px; }
 .cover__meta dd i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 1px var(--line); }
-.cover__mark { grid-column: 2; grid-row: 1 / -1; align-self: center; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; box-shadow: 0 50px 100px -40px rgba(120, 90, 0, .45); }
+.cover__art { grid-column: 2; grid-row: 2 / -1; display: flex; justify-content: flex-end; align-items: flex-end; min-height: 0; } /* spans the title to the last meta line */
+.cover__mark { display: block; height: 100%; max-height: 100%; width: auto; max-width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; box-shadow: 0 50px 100px -40px rgba(120, 90, 0, .45); }
 
 /* Spreads (book pages) */
 .spread { padding: clamp(80px, 12vw, 180px) var(--pad); border-top: 1px solid var(--line); display: grid; grid-template-columns: 180px 1fr; gap: 40px; }
@@ -136,7 +137,8 @@ em { font-family: var(--serif); font-size: 1.12em; }
 
 @media (max-width: 900px) {
   .cover { grid-template-columns: 1fr; grid-template-rows: none; padding-top: 100px; }
-  .cover__mark { grid-column: 1; grid-row: auto; order: -1; width: 70%; margin: 0 0 30px; }
+  .cover__art { grid-column: 1; grid-row: auto; order: -1; display: block; margin: 0 0 30px; }
+  .cover__mark { width: 70%; height: auto; }
   .spread { grid-template-columns: 1fr; gap: 10px; }
   .folio { position: static; }
   .spread__body--two, .quotes { grid-template-columns: 1fr; grid-column: 1; }
@@ -267,6 +269,6 @@ em { font-family: var(--serif); font-size: 1.12em; }
 
 /* Opened inside the home page's overlay: the overlay supplies the close button */
 .embed .bar { display: none; }
-.embed, .embed body { overflow-x: hidden; }
+.embed, .embed body { overflow-x: clip; } /* clip, not hidden: hidden would turn body into a scroller and unpin the sticky figures */
 /* The small-size test fills the frame, so its caption steps aside */
 .small.on ~ .stage__fig { opacity: 0; }

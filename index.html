@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="wordmark.css?v=49" />
-  <link rel="stylesheet" href="styles.css?v=66" />
+  <link rel="stylesheet" href="styles.css?v=70" />
   <link rel="stylesheet" href="hq.css?v=47" />
 </head>
 <body>
@@ -116,9 +116,10 @@
       <p class="label mono"><span>(01)</span> About</p>
       <p class="manifesto__text split-words">Six years of medical school, and most evenings in Illustrator. These days I make brands, illustrations, 3D products and software.</p>
       <div class="about">
-        <figure class="about__portrait tilt" data-cursor="hover">
-          <img src="assets/work/submissions-illustrations-5.webp" alt="Self-portrait illustration of Umayair from The Submissions Podcast series" loading="lazy" />
-          <figcaption class="mono">Self-portrait · Submissions series</figcaption>
+        <figure class="about__portrait" id="portrait" data-cursor="hover">
+          <div class="pt__bg" aria-hidden="true"><i></i><i></i><i></i></div>
+          <svg class="pt__ring" viewBox="0 0 400 400" aria-hidden="true"><defs><path id="ptCircle" d="M200,200 m-170,0 a170,170 0 1,1 340,0 a170,170 0 1,1 -340,0" /></defs><text><textPath href="#ptCircle" textLength="1060">Doctor · Designer · Founder · Doctor · Designer · Founder ·</textPath></text></svg>
+          <img class="pt__me" src="assets/portrait-cut.webp" width="1308" height="1222" alt="Self-portrait illustration of Umayair, drawn in the style of the Submissions podcast portraits" loading="lazy" />
         </figure>
         <div class="about__copy">
           <p>I'm <strong>Umayair</strong>, <strong>27</strong>, from London. I trained as a doctor at <strong>King's College London</strong>, took a year at <strong>Imperial College Business School</strong>, and designed alongside it the whole way through, building identities for student societies, charities, caterers and start-ups.</p>
@@ -161,11 +162,16 @@
           <h2 class="display">Made for <span class="serif-i grad-text">the fun of it</span></h2>
         </div>
         <div class="sketch__aside">
-          <p>Late-night iPad drawings, Procreate experiments and the odd photo, first posted on Instagram and kept here.</p>
+          <p>Late-night iPad drawings and Procreate experiments, first posted on Instagram and kept here.</p>
           <a class="btn btn--ghost magnetic" href="https://www.instagram.com/umayaircreates/" target="_blank" rel="noopener" data-cursor="hover"><span>@umayaircreates ↗</span></a>
         </div>
       </div>
       <div class="sketch__grid" id="sketchGrid"></div>
+      <div class="sketch__nav" aria-hidden="true">
+        <div class="swipe__bar"><i id="sketchBar"></i></div>
+        <button class="sketch__arrow" id="sketchPrev" data-cursor="hover" tabindex="-1">←</button>
+        <button class="sketch__arrow" id="sketchNext" data-cursor="hover" tabindex="-1">→</button>
+      </div>
     </section>
 
     <!-- CAPABILITIES -->
@@ -354,7 +360,7 @@
   <script src="wordmark.js?v=50"></script>
   <script src="data.js?v=56"></script>
   <script src="prints.js?v=47"></script>
-  <script src="main.js?v=68"></script>
+  <script src="main.js?v=75"></script>
   <script src="hq.js?v=47"></script>
 </body>
 </html>

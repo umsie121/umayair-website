@@ -14,11 +14,13 @@
   const pad = n => String(n).padStart(2, '0');
   const img = name => `assets/work/${name}.webp`;
   // A project film: muted, looping, buffered up front so it's already moving when you reach it.
-  // In the overlay it loops with controls; in the grid it plays once when it comes into view and
+  // In the overlay it loops, without controls; in the grid it plays once when it comes into view and
   // stops on the finished logo (end), just before the film's loop-back fade.
-  const filmTag = (p, controls) => controls
-    ? `<video src="${p.video.src}" poster="${p.video.poster}" ${reducedMotion() ? '' : 'autoplay'} muted loop playsinline preload="auto" controls aria-label="${p.title} film"></video>`
+  const filmTag = (p, looping) => looping
+    ? `<video src="${p.video.src}" poster="${p.video.poster}" ${reducedMotion() ? '' : 'autoplay'} muted loop playsinline preload="auto" aria-label="${p.title} film"></video>`
     : `<video src="${p.video.src}" poster="${p.video.poster}" muted playsinline preload="auto"${p.video.end ? ` data-end="${p.video.end}"` : ''} aria-label="${p.title} film"></video>`;
+  const HOME = location.pathname; // the overlay's case studies push their own path; closing comes back here
+  const STORY_V = 18; // bump with the case-study files so the overlay never shows a stale copy
   function reducedMotion() { return matchMedia('(prefers-reduced-motion: reduce)').matches; }
 
   /* ---------------- Text splitting ---------------- */
@@ -156,7 +158,7 @@
   $('#projectCount').textContent = P.length;
 
   /* ---------------- Sketchbook (Instagram posts, hosted here) ---------------- */
-  const POSTS = window.POSTS || [];
+  const POSTS = (window.POSTS || []).filter(p => p.kind !== 'Photo'); // drawings only
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const fmtDate = iso => { const [y, m, d] = iso.split('-'); return `${+d} ${MONTHS[m - 1]} ${y}`; };
   $('#sketchGrid').innerHTML = POSTS.map((p, i) => `
@@ -164,6 +166,14 @@
       <img src="assets/ig/${p.id}.webp" alt="" loading="lazy" />
       <span class="sketch__meta mono"><span>${p.kind}</span><span>${p.date.slice(0, 4)}</span></span>
     </button>`).join('');
+
+  // One sideways row: swipe on phones, arrows or trackpad on a laptop
+  const sg = $('#sketchGrid');
+  const sBar = () => { const max = sg.scrollWidth - sg.clientWidth; $('#sketchBar').style.transform = `scaleX(${.12 + (max > 0 ? sg.scrollLeft / max : 0) * .88})`; };
+  sg.addEventListener('scroll', sBar, { passive: true }); sBar();
+  const sStep = d => sg.scrollBy({ left: d * sg.clientWidth * .8, behavior: 'smooth' });
+  $('#sketchPrev').addEventListener('click', () => sStep(-1));
+  $('#sketchNext').addEventListener('click', () => sStep(1));
 
   const lb = $('#lightbox');
   const openLb = i => {
@@ -407,6 +417,22 @@
     });
   }
 
+  // Portrait: layers drift apart with the pointer (or with scroll on touch screens)
+  const pt = $('#portrait');
+  if (pt && !reduced) {
+    const setP = (x, y) => { pt.style.setProperty('--px', x.toFixed(3)); pt.style.setProperty('--py', y.toFixed(3)); };
+    const clamp = v => Math.max(-1, Math.min(1, v));
+    if (finePointer) addEventListener('pointermove', e => {
+      const r = pt.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      setP(clamp((e.clientX - r.left - r.width / 2) / r.width), clamp((e.clientY - r.top - r.height / 2) / r.height));
+    }, { passive: true });
+    else addEventListener('scroll', () => {
+      const r = pt.getBoundingClientRect();
+      setP(0, clamp((r.top + r.height / 2 - innerHeight / 2) / innerHeight * 2));
+    }, { passive: true });
+  }
+
   /* ---------------- Nav: hide on scroll down, active section ---------------- */
   const nav = $('#nav'); let lastY = 0;
   // Mobile wayfinding: a progress bar along the top and a pill naming the section you're in
@@ -493,7 +519,7 @@
     // Case studies: the overlay becomes the full case study page, with just the close button on top
     const frame = $('#ovFrame');
     overlay.classList.toggle('is-story', !!p.story);
-    if (p.story) { if (!frame.src.endsWith(p.story)) frame.src = p.story; cursor && (cursor.style.opacity = 0); }
+    if (p.story) { if (!frame.src.includes(p.story)) frame.src = `${p.story}?v=${STORY_V}`; cursor && (cursor.style.opacity = 0); }
     else if (frame.src) frame.removeAttribute('src');
     panel.style.setProperty('--c1', p.colors[0]); panel.style.setProperty('--c2', p.colors[1]);
     $('#ovIdx').textContent = pad(i + 1); $('#ovCat').textContent = p.cat; $('#ovYear').textContent = p.year ? ' / ' + p.year : '';
@@ -509,7 +535,8 @@
       lenis?.stop(); document.body.style.overflow = 'hidden';
       setTimeout(() => $('#ovClose').focus({ preventScroll: true }), 50);
     }
-    if (p.story) { if (push) history.pushState({ slug }, '', '#/work/' + slug); return; }
+    // A case study takes its own address, so copying or sharing it gets that page's own title and preview
+    if (p.story) { if (push) history.pushState({ slug }, '', p.story); return; }
     if (hasGsap && !reduced) {
       gsap.fromTo('#ovTitle', { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out', delay: .15 });
       gsap.fromTo('#ovMedia img, #ovText > *', { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'expo.out', stagger: .06, delay: .25 });
@@ -524,7 +551,7 @@
     setTimeout(() => { if (!overlay.classList.contains('open')) { $('#ovFrame').removeAttribute('src'); overlay.classList.remove('is-story'); } }, 900);
     cursor?.classList.remove('is-view', 'is-hover');
     lastFocus?.focus?.({ preventScroll: true });
-    if (push) history.pushState({}, '', location.pathname + location.search);
+    if (push) history.pushState({}, '', HOME + location.search);
   };
   document.addEventListener('click', e => {
     const t = e.target.closest('[data-slug]');
@@ -543,8 +570,8 @@
     if (e.key === 'ArrowLeft') $('#ovPrev').click();
   });
   const route = () => {
-    const m = location.hash.match(/^#\/work\/([\w-]+)/);
-    m ? openProject(m[1], false) : closeProject(false);
+    const m = history.state?.slug || location.hash.match(/^#\/work\/([\w-]+)/)?.[1];
+    m ? openProject(m, false) : closeProject(false);
   };
   addEventListener('message', e => { if (e.origin === location.origin && e.data === 'close-story') closeProject(); });
   addEventListener('popstate', route);
