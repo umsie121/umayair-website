@@ -271,3 +271,6 @@ em { font-family: var(--serif); font-size: 1.12em; }
 
 /* Opened inside the home page's overlay: the overlay supplies the close button */
 .embed .bar { display: none; }
+.embed, .embed body { overflow-x: hidden; }
+/* The small-size test fills the frame, so its caption steps aside */
+.small.on ~ .stage__fig { opacity: 0; }
