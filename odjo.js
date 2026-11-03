@@ -110,7 +110,7 @@
   $$('.reveal').forEach(el => rio.observe(el));
 
   if (window.Lenis && !reduced) {
-    const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    const lenis = new Lenis({ lerp: .16, wheelMultiplier: 1.25 });
     if (window.ScrollTrigger) lenis.on('scroll', ScrollTrigger.update);
     const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf);
   }

@@ -65,7 +65,7 @@
     const iIdx = letters.findIndex(l => l.classList.contains('wm__i'));
     el.classList.add('is-intro');
     g.set(base, { strokeDasharray: len, strokeDashoffset: len, opacity: 1 });
-    g.set(letters, { yPercent: 110 });
+    g.set(letters, { yPercent: 170 }); // clear of the clip's .42em bottom padding
     g.set(el.querySelector('.wm__dot'), { scale: 0 });
     const draw = 2.1;
     // power1.inOut covers distance unevenly, so find the time at which the trace reaches the peak

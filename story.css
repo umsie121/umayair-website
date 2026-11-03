@@ -147,11 +147,7 @@ em { font-family: var(--serif); font-size: 1.12em; }
   .embed .stage { top: 0; padding-top: 14px; }
   .stage__frame { width: min(100%, 44svh); }
   .steps { padding: 4vh 0 24vh; }
-  .step { min-height: 52svh; justify-content: flex-start; padding-top: 2vh; opacity: 1; }
-  /* Each step snaps to sit just under the pinned figure */
-  html:has(.process) { scroll-snap-type: y proximity; }
-  .step { scroll-snap-align: start; scroll-margin-top: calc(44svh + 96px); }
-  .embed .step { scroll-margin-top: calc(44svh + 44px); }
+  .step { min-height: 42svh; justify-content: flex-start; padding-top: 2vh; opacity: 1; }
   .step h3 { font-size: 30px; margin-bottom: 12px; }
   .step p { font-size: 16px; }
   .rubin { position: static; max-width: 360px; }

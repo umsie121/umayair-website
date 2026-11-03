@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="wordmark.css?v=49" />
-  <link rel="stylesheet" href="styles.css?v=60" />
+  <link rel="stylesheet" href="styles.css?v=66" />
   <link rel="stylesheet" href="hq.css?v=47" />
 </head>
 <body>
@@ -52,7 +52,7 @@
       <a href="#now" data-cursor="hover">Now</a>
     </nav>
     <div class="nav__right">
-      <span class="nav__clock mono"><i class="pulse-dot"></i><span data-clock>London --:--</span></span>
+      <span class="nav__clock mono"><span data-clock>London --:--</span></span>
       <a href="#contact" class="btn btn--small magnetic" data-cursor="hover"><span>Say hello</span></a>
     </div>
     <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
@@ -79,7 +79,7 @@
       <canvas class="hero__gl" id="gl"></canvas>
       <div class="hero__fade"></div>
       <div class="hero__inner">
-        <p class="hero__eyebrow mono reveal-up"><span class="pulse-dot"></span><span id="greeting">Hello</span> from London. Currently building <a href="#now" data-cursor="hover">Odjo</a></p>
+        <p class="hero__eyebrow mono reveal-up"><span id="greeting">Hello</span> from London. Currently building <a href="#now" data-cursor="hover">Odjo</a></p>
         <h1 class="hero__title" aria-label="Umayair">
           <span class="hero__line"><span class="split-chars">Umayair</span></span>
         </h1>
@@ -136,10 +136,12 @@
       <div class="work__head">
         <p class="label mono"><span>(02)</span> Selected work</p>
         <h2 class="display">Things I've <span class="serif-i grad-text">made</span></h2>
+        <p class="swipe mono" aria-hidden="true"><span><b id="swipeN">01</b> / <span id="swipeOf">09</span></span><span class="swipe__go">Swipe <i>→</i></span></p>
       </div>
       <div class="hscroll" id="hscroll">
         <div class="hscroll__track" id="hscrollTrack"></div>
       </div>
+      <div class="swipe__bar" aria-hidden="true"><i id="swipeBar"></i></div>
     </section>
 
     <!-- INDEX -->
@@ -276,7 +278,6 @@
         <div class="now__glow"></div>
         <div class="now__top">
           <p class="label mono"><span>(09)</span> Right now</p>
-          <span class="tag mono"><i class="pulse-dot"></i> Live</span>
         </div>
         <h2 class="now__title"><img class="now__mark" src="assets/odjo/mark.webp" alt="Odjo logo" width="64" height="64" />Co-founding <span class="serif-i">Odjo</span></h2>
         <p class="now__desc">Odjo is an AI front desk. It picks up every call, WhatsApp, web form and email, in more than 20 languages, works out what the person needs, then books them in, flags it as urgent or passes it to the right person. Anything sensitive is drafted for a human to send. It’s live with letting agents, tutoring and exam centres, clinics, accountants and law firms.</p>
@@ -290,6 +291,7 @@
           <div class="flow-step"><span class="mono">04</span>File</div>
         </div>
         <a class="btn magnetic" href="https://odjoai.com" target="_blank" rel="noopener" data-cursor="hover"><span>Visit Odjo ↗</span></a>
+        <img class="now__art" src="assets/odjo/mark-white.png" alt="" aria-hidden="true" width="1254" height="1254" loading="lazy" />
       </div>
     </section>
 
@@ -349,10 +351,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
   <div class="lightbox" id="lightbox" aria-hidden="true" data-lenis-prevent><button class="lightbox__close mono" id="lbClose" data-cursor="hover">Close ✕</button><figure><img id="lbImg" alt="" /><figcaption><span class="mono" id="lbMeta"></span><p id="lbCap"></p></figcaption></figure></div>
-  <script src="wordmark.js?v=48"></script>
+  <script src="wordmark.js?v=50"></script>
   <script src="data.js?v=56"></script>
   <script src="prints.js?v=47"></script>
-  <script src="main.js?v=64"></script>
+  <script src="main.js?v=68"></script>
   <script src="hq.js?v=47"></script>
 </body>
 </html>

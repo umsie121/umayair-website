@@ -85,6 +85,43 @@
   }), { threshold: .4 });
   if (!reducedMotion()) $$('video', track).forEach(v => filmIO.observe(v));
 
+  // Phones: the grid becomes one swipeable row, with a counter, a progress bar and a nudge the first time it's seen
+  const PHONE = matchMedia('(max-width: 860px)');
+  const cards = $$('.feature', track);
+  $('#swipeOf').textContent = pad(featured.length);
+  const onSwipe = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    const p = max > 0 ? track.scrollLeft / max : 0;
+    $('#swipeBar').style.transform = `scaleX(${.12 + p * .88})`;
+    const mid = track.scrollLeft + track.clientWidth / 2;
+    const k = cards.reduce((b, c, i) => Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid) < Math.abs(cards[b].offsetLeft + cards[b].offsetWidth / 2 - mid) ? i : b, 0);
+    $('#swipeN').textContent = pad(Math.min(k + 1, featured.length));
+  };
+  track.addEventListener('scroll', onSwipe, { passive: true }); onSwipe();
+  track.addEventListener('touchstart', () => $('.swipe').classList.add('swiped'), { passive: true, once: true });
+  if (!reducedMotion()) new IntersectionObserver(([e], o) => {
+    if (!e.isIntersecting || !PHONE.matches || track.scrollLeft > 0) return;
+    o.disconnect();
+    setTimeout(() => { track.scrollBy({ left: 90, behavior: 'smooth' }); setTimeout(() => track.scrollTo({ left: 0, behavior: 'smooth' }), 650); }, 500);
+  }, { threshold: .6 }).observe(track);
+
+  // Phones: the quieter sections fold down to their headings; tap one to open it
+  if (PHONE.matches) {
+    $$('.cap, .also__card').forEach(c => {
+      c.classList.add('fold'); c.setAttribute('role', 'button'); c.tabIndex = 0; c.setAttribute('aria-expanded', 'false');
+      const flip = e => { if (e.target.closest('a')) return; const open = c.classList.toggle('open'); c.setAttribute('aria-expanded', open); window.ScrollTrigger && ScrollTrigger.refresh(); };
+      c.addEventListener('click', flip);
+      c.addEventListener('keydown', e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), flip(e)));
+    });
+    const jl = $('.journey__list'), early = $$('li', jl).slice(0, 4);
+    $('.journey').classList.add('folded');
+    const more = document.createElement('button');
+    more.className = 'journey__more mono'; more.dataset.cursor = 'hover';
+    more.innerHTML = `<span>${early[0].querySelector('.journey__year').textContent}–${early.at(-1).querySelector('.journey__year').textContent}</span> Show ${early.length} earlier steps +`;
+    more.addEventListener('click', () => { $('.journey').classList.remove('folded'); more.remove(); window.ScrollTrigger && ScrollTrigger.refresh(); });
+    jl.before(more);
+  }
+
   // Size each frame to its artwork's own proportions so logos are never cropped.
   $$('.feature__img img', track).forEach(im => {
     const fit = () => im.naturalWidth && im.parentElement.style.setProperty('--ar', im.naturalWidth / im.naturalHeight);
@@ -102,6 +139,20 @@
       </button>
     </li>`).join('');
   $('#indexCount').textContent = pad(others.length);
+  // Phones: show the first two, the rest drop down behind "See more"
+  if (PHONE.matches && others.length > 3) {
+    const list = $('#indexList'); list.classList.add('folded');
+    const more = document.createElement('button');
+    more.className = 'index__more mono'; more.setAttribute('aria-expanded', 'false');
+    more.innerHTML = `See ${others.length - 2} more <i>+</i>`;
+    more.addEventListener('click', () => {
+      const open = list.classList.toggle('folded') === false;
+      more.setAttribute('aria-expanded', open);
+      more.innerHTML = open ? 'Show fewer <i>+</i>' : `See ${others.length - 2} more <i>+</i>`;
+      window.ScrollTrigger && ScrollTrigger.refresh();
+    });
+    list.after(more);
+  }
   $('#projectCount').textContent = P.length;
 
   /* ---------------- Sketchbook (Instagram posts, hosted here) ---------------- */
@@ -403,7 +454,7 @@
   /* ---------------- Smooth scroll ---------------- */
   let lenis = null;
   if (typeof window.Lenis !== 'undefined' && !reduced) {
-    lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    lenis = new Lenis({ lerp: .16, wheelMultiplier: 1.25 });
     lenis.on('scroll', ({ scroll }) => { onScroll(scroll); hasGsap && ScrollTrigger.update(); });
     if (hasGsap) { gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0); }
     else { const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
