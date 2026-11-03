@@ -1,0 +1,61 @@
+/* "Do not click": Bedroom HQ takeover (see hq.js). Terminal green, amber, alarm red. */
+.ov-hq { display: inline-flex; align-items: center; gap: 10px; margin-top: 4px; padding: 12px 18px; border-radius: 6px; border: 1px solid #ff3b30; background: rgba(255, 59, 48, .1); color: #ff6a5f; font: 500 12px var(--mono, monospace); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+.ov-hq::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #ff3b30; box-shadow: 0 0 12px #ff3b30; animation: hqPulse 1.2s steps(2) infinite; }
+.ov-hq:hover { background: #ff3b30; color: #120000; }
+@keyframes hqPulse { 50% { opacity: .25; } }
+
+.hq-static { position: fixed; inset: 0; z-index: 10000; background: #000; }
+.hq-static canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+.hq-static p { position: absolute; inset: 50% 0 auto; transform: translateY(-50%); margin: 0; text-align: center; font: 700 clamp(18px, 2.6vw, 34px) var(--mono, monospace); letter-spacing: .3em; color: #fff; mix-blend-mode: difference; }
+
+.hq-boot { position: fixed; inset: 0; z-index: 10000; background: #000; overflow: hidden; }
+.hq-screen { position: absolute; inset: 0; background: #020a04; transition: transform .16s ease-in; }
+.hq-term { height: 100%; box-sizing: border-box; padding: clamp(28px, 6vh, 64px) clamp(20px, 7vw, 110px); font: 400 clamp(11px, 1.35vw, 19px)/1.45 var(--mono, monospace); color: #39ff88; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; text-shadow: 0 0 8px rgba(57, 255, 136, .35); }
+.hq-line { white-space: pre; min-height: 1.45em; }
+.hq-line.dim { color: rgba(57, 255, 136, .55); }
+.hq-line.amber { color: #ffb000; }
+.hq-line.cmd { color: #e8fff0; }
+.hq-line.hex { color: rgba(57, 255, 136, .4); font-size: .82em; }
+.hq-line.big { font-size: clamp(22px, 3vw, 44px); font-weight: 700; color: #ffb000; margin-top: 10px; letter-spacing: .04em; white-space: normal; }
+.hq-caret { display: inline-block; width: .55em; height: 1.1em; background: #39ff88; vertical-align: -.2em; margin-left: 2px; animation: hqPulse 1s steps(2) infinite; }
+.hq-boot.rgb .hq-screen { filter: drop-shadow(6px 0 0 rgba(255, 0, 60, .7)) drop-shadow(-6px 0 0 rgba(0, 220, 255, .7)); }
+.hq-boot.inv::after { content: ''; position: absolute; inset: 0; background: #ff2a1f; opacity: .5; }
+.hq-boot.fx-line .hq-screen { transform: scale(1, .006) !important; background: #e8fff0; }
+.hq-boot.fx-dot .hq-screen { transform: scale(.006) !important; background: #fff; }
+.hq-boot.fx-line .hq-term, .hq-boot.fx-dot .hq-term { visibility: hidden; }
+.hq-boot.fx-dark .hq-screen { display: none; }
+
+/* Live: night vision over the real page */
+html.hq, html.hq * { cursor: crosshair !important; }
+.hq-hud { position: fixed; inset: 0; z-index: 9990; pointer-events: none; font-family: var(--mono, monospace); color: #39ff88; animation: hqOn .7s steps(1) 1; }
+@keyframes hqOn { 0% { opacity: 0; } 15% { opacity: 1; } 25% { opacity: 0; } 45% { opacity: 1; } 55% { opacity: .2; } 70% { opacity: 1; } }
+.hq-nv { position: fixed; inset: 0; z-index: 9989; pointer-events: none; animation: hqOn .7s steps(1) 1; -webkit-backdrop-filter: grayscale(1) sepia(1) hue-rotate(75deg) saturate(3) brightness(.85) contrast(1.4); backdrop-filter: grayscale(1) sepia(1) hue-rotate(75deg) saturate(3) brightness(.85) contrast(1.4); }
+.hq-scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .28) 0 1px, transparent 1px 3px); mix-blend-mode: multiply; }
+.hq-hud::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(0, 0, 0, .65)); }
+.hq-corner { position: absolute; width: 46px; height: 46px; border: 2px solid #39ff88; }
+.hq-corner.tl { left: 22px; top: 22px; border-right: 0; border-bottom: 0; }
+.hq-corner.tr { right: 22px; top: 22px; border-left: 0; border-bottom: 0; }
+.hq-corner.bl { left: 22px; bottom: 22px; border-right: 0; border-top: 0; }
+.hq-corner.br { right: 22px; bottom: 22px; border-left: 0; border-top: 0; }
+.hq-reticle { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.hq-reticle i { position: absolute; background: #39ff88; }
+.hq-reticle .h { left: -60px; top: 0; width: 120px; height: 1px; }
+.hq-reticle .v { left: 0; top: -60px; width: 1px; height: 120px; }
+.hq-reticle .ring { left: -34px; top: -34px; width: 68px; height: 68px; border: 1px solid #39ff88; border-radius: 50%; background: none; }
+.hq-xy { position: absolute; left: 44px; top: 14px; font-size: 11px; letter-spacing: .08em; white-space: nowrap; opacity: .85; }
+.hq-top, .hq-feed { position: absolute; left: 84px; margin: 0; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.hq-top { top: 88px; color: #ffb000; }
+.hq-feed { bottom: 64px; }
+.hq-rec { color: #ff3b30; opacity: .2; }
+.hq-hud.blink .hq-rec { opacity: 1; }
+.hq-destruct { position: absolute; right: 84px; bottom: 26px; pointer-events: auto; padding: 12px 18px; border: 1px solid #ff3b30; border-radius: 6px; background: rgba(40, 0, 0, .8); color: #ff6a5f; font: 600 12px var(--mono, monospace); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+.hq-destruct:hover, .hq-destruct:focus-visible { background: #ff3b30; color: #120000; outline: none; }
+.hq-hud.g-shift { transform: translate(-18px, 4px) skewX(-2deg); }
+.hq-nv.g-rgb { -webkit-backdrop-filter: grayscale(1) sepia(1) hue-rotate(-30deg) saturate(5) brightness(.9) contrast(1.6); backdrop-filter: grayscale(1) sepia(1) hue-rotate(-30deg) saturate(5) brightness(.9) contrast(1.6); }
+
+.hq-countdown { position: fixed; inset: 0; z-index: 10001; display: grid; place-items: center; text-align: center; background: rgba(40, 0, 0, .9); color: #ff3b30; font-family: var(--mono, monospace); }
+.hq-countdown p { margin: 0; font-size: clamp(14px, 2vw, 26px); letter-spacing: .25em; font-weight: 700; }
+.hq-countdown p.dim { color: rgba(255, 120, 110, .7); font-size: clamp(11px, 1.3vw, 17px); margin-top: 12px; }
+.hq-countdown b { display: block; font-size: clamp(140px, 24vw, 300px); line-height: 1; }
+.hq-countdown.flash { background: #fff; }
+@media (max-width: 640px) { .hq-top, .hq-feed { left: 30px; } .hq-destruct { right: 30px; bottom: 70px; } }

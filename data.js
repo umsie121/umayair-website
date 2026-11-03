@@ -1,15 +1,55 @@
 // Every project from the original umayair.com, with its own story and palette.
 window.PROJECTS = [
   {
+    slug: 'submissions', story: 'submissions.html', title: 'Submissions', year: '2020', cat: 'Podcast · Founder', featured: true,
+    tagline: 'A podcast I started, built and ran for four years.',
+    colors: ['#131313', '#f7c933'],
+    images: ['submissions-1', 'submissions-4', 'submissions-2', 'submissions-3'],
+    video: { src: 'assets/video/submissions.mp4', poster: 'assets/video/submissions-poster.webp', ar: '1' },
+    text: [
+      '<a class="ov-cta" href="submissions.html">Read the full case study →</a>',
+      'I created The Submissions Podcast in 2020 to share stories from Muslims, sent in as voicenotes by listeners. I put together a team of seven volunteers, found the storytellers and shaped the show, and designed everything it wore: the name’s logo, the episode cards and the team portraits.',
+      'Over four years we made 24 episodes and reached listeners in 79 countries. Spotify picked it as a Ramadan Recommendation in 2021 and it reached number 9 in the UK Religion & Spirituality chart.',
+      'The logo is the Ka‘bah seen from its corner, with the gold band left out as a gap. The case study walks through it step by step.'
+    ]
+  },
+  {
+    slug: 'kcl-bsoc', story: 'bsoc.html', title: 'KCL BSOC', year: '2019', cat: 'Identity · President', featured: true,
+    tagline: 'A shapla in bloom.',
+    colors: ['#0c4d2e', '#d6293b'],
+    images: ['kcl-bsoc-1'],
+    video: { src: 'assets/video/kcl-bsoc.mp4', poster: 'assets/video/kcl-bsoc-poster.webp', ar: '1' },
+    text: [
+      '<a class="ov-cta" href="bsoc.html">Read the full case study →</a>',
+      'I was president of King’s College London Bangladesh Society from September 2019 to August 2020, and redrew its logo that year.',
+      'The old mark was an ornate circular stamp: hard to read, impossible to shrink and with no one-colour version. The new one is built from the flag and the shapla, Bangladesh’s national flower: a green circle, ten red petals turned around the centre, the name on a white band and the country in the middle.',
+      'It works in full colour, in one colour on a hoodie, and at the size of a profile picture.'
+    ]
+  },
+  {
+    slug: 'odjo', story: 'odjo.html', title: 'Odjo', year: '', cat: 'Identity · Co-founder', featured: true,
+    tagline: 'Five leaves, one stem.',
+    colors: ['#2c3b2d', '#5f7d5c'],
+    images: ['odjo-1'],
+    video: { src: 'assets/video/odjo.mp4', poster: 'assets/video/odjo-poster.webp', ar: '1' },
+    text: [
+      '<a class="ov-cta" href="odjo.html">Read the full case study →</a>',
+      'The identity for Odjo, the AI front desk I co-founded. A tree of five connected leaves growing from one stem, in forest green: many channels, tied back to one place.'
+    ]
+  },
+  {
     slug: 'frame', title: 'Family Frame', year: '2026', cat: 'Product · Software', featured: true,
     tagline: 'A cheap photo frame, taught to run the family’s whole day.',
     colors: ['#3b1d5c', '#e0806a'],
     images: ['frame-1', 'frame-2', 'frame-3', 'frame-4', 'frame-5'],
-    video: { src: 'assets/video/family-frame.mp4', poster: 'assets/video/family-frame-poster.webp' },
+    video: { src: 'assets/video/family-frame.mp4', poster: 'assets/video/family-frame-poster.webp', ar: '16/9' },
     text: [
       'A family display that runs entirely on a Frameo photo frame: 1 GB of RAM, Android 6 and a browser from 2015. There’s no server. It’s mostly photos, with small glass widgets for the time, weather, next prayer, next event and the 3D printer.',
       'Tap it for the calendar, prayer times, Spotify with word-by-word lyrics, and a printer screen that lists each warm-up step. Anyone in the family can send photos to it with a QR code or an iPhone shortcut.',
       'The chip can’t do blur, so the glass effect is faked with a 48×30 pixel image. The interface deploys over Wi-Fi in a few seconds and is served by a small Java app. About 13,000 lines, written with Claude Code.',
+      'There’s also an easter egg. Open the printer camera full screen and there’s a red button marked “Do not click”. Press it and the frame gets “hacked”: TV static, then a terminal that types its way in over SSH, then a map that zooms from the whole world down to our street and locks on, with sirens and a robot voice. The camera comes back in night vision with a reticle and a live feed, and “Self destruct” counts down 3, 2, 1 and puts everything back. It’s all cosmetic and never sends anything anywhere.',
+      'The button below does the same to this website.',
+      '<button class="ov-hq" type="button" data-hq>Do not click</button>',
       '<a href="https://github.com/umsie121/frame" target="_blank" rel="noopener">Code on GitHub ↗</a>'
     ]
   },
@@ -18,6 +58,7 @@ window.PROJECTS = [
     tagline: 'Plant care, personalised.',
     colors: ['#0f5c4c', '#1fa184'],
     images: ['eden-1', 'eden-2', 'eden-3'],
+    video: { src: 'assets/video/eden.mp4?v=2', poster: 'assets/video/eden-poster.webp?v=2', ar: '16/9' },
     text: [
       'Eden was my first proper 3D project: a concept plant probe you push into the soil, modelled from scratch.',
       'It checks five things (water, temperature, light, pH and nutrients) and sends them to your phone over Bluetooth. On paper it’s waterproof to IP68 and the battery lasts four months.',
@@ -25,10 +66,11 @@ window.PROJECTS = [
     ]
   },
   {
-    slug: 'mind-ink', title: 'Mind Ink', year: '', cat: 'Logo · Newsletter', featured: true,
-    tagline: 'A logo for a friend’s newsletter.',
+    slug: 'mind-ink', title: 'Mind Ink', year: '', cat: 'Logo · Substack', featured: true,
+    tagline: 'A logo for a friend’s Substack.',
     colors: ['#0a2b18', '#2f6b45'],
     images: ['mind-ink-1'],
+    video: { src: 'assets/video/mind-ink.mp4', poster: 'assets/video/mind-ink-poster.webp', ar: '1' },
     text: [
       'My friend Arslan writes Mind Ink, a Substack he describes as “thinking at a mild volume about the world and the human experience”. It now has more than a thousand subscribers.',
       'I designed its logo: a stacked serif wordmark in cream on deep green, with a quill beside it. The quill’s nib comes down to the baseline, as if the name has just been written.',
@@ -36,38 +78,18 @@ window.PROJECTS = [
     ]
   },
   {
-    slug: 'mipp', title: 'MIPP', year: '', cat: 'Branding', featured: true,
-    tagline: 'The crescent is the dot on the i.',
+    slug: 'mipp', title: 'MIPP', year: '2022', cat: 'Identity', featured: true,
+    tagline: 'An i like a minaret, with a crescent for its dot.',
     colors: ['#20263E', '#24499C'],
     images: ['mipp-1', 'mipp-2', 'mipp-3', 'mipp-4'],
+    video: { src: 'assets/video/mipp.mp4', poster: 'assets/video/mipp-poster.webp', ar: '4/3' },
     text: [
-      'Branding for Muslims in Public Policy, run by friends of mine. MIPP is an independent organisation that helps government workforces represent the communities they serve.',
-      'The whole identity comes from one detail: the dot on the i in “mipp” is a crescent. The type is rounded and friendly, set in Sofia Pro Soft, and there are five colours running from a bright blue to a deep slate.',
+      'MIPP, Muslims in Public Policy, is my friend Irfan’s idea. When he applied to the civil service he really wanted mentorship and role models, so he set out to create that himself: a community for Muslims working together in public policy.',
+      'On 19 February 2022 he was staying over at mine before our early-morning flight to Morocco, and said: let’s brainstorm for this idea I have. It was meant to be a quick, fun logo session. We stayed up for ages, and by the time we left for the airport it had its visual identity.',
+      'Since then Irfan has grown it into an independent community of Muslims across the civil service, local government and arm’s-length bodies, now running events like its own leadership conference in central London.',
+      'The i stands like a minaret, with a crescent for its dot. We wanted a nod to Islam, the thing that connects its members, but set in a rounded, friendly typeface so it never felt stiff, and simple enough to scale from a favicon to a banner. Five colours run from a bright blue to a deep slate.',
       'The wordmark also repeats as a pattern, which is what goes on their pull-up banners and event backdrops.',
       '<a href="https://www.muslimsinpp.org/" target="_blank" rel="noopener">Visit MIPP ↗</a>'
-    ]
-  },
-  {
-    slug: 'submissions', title: 'Submissions', year: '2020', cat: 'Podcast · Founder', featured: true,
-    tagline: 'A podcast I started, built and ran for four years.',
-    colors: ['#131313', '#f7c933'],
-    images: ['submissions-1', 'submissions-4', 'submissions-2', 'submissions-3'],
-    text: [
-      '<a class="ov-cta" href="submissions.html">Read the full case study →</a>',
-      'I created The Submissions Podcast in 2020 to share stories from Muslims, sent in as voicenotes by listeners. I put together a team of seven volunteers, found the storytellers and shaped the show, and designed everything it wore: the name’s logo, the episode cards and the team portraits.',
-      'Over four years we made 24 episodes and reached listeners in 79 countries. Spotify picked it as a Ramadan Recommendation in 2021, it reached number 9 in the UK Religion & Spirituality chart, and in 2023 we held our first live show in London.',
-      'The logo is the Ka‘bah seen from its corner, with the gold band left out as a gap. The case study walks through it step by step.'
-    ]
-  },
-  {
-    slug: 'submissions-illustrations', title: 'Submissions Illustrations', year: '2020', cat: 'Illustration series', featured: true,
-    tagline: 'Five colours each, and no faces.',
-    colors: ['#e0a40f', '#f7c933'],
-    images: ['submissions-illustrations-1', 'submissions-illustrations-2', 'submissions-illustrations-3', 'submissions-illustrations-4', 'submissions-illustrations-5'],
-    text: [
-      'Portraits of the Submissions team, drawn for the launch in November 2020. None of them has a face, so they read as characters rather than likenesses.',
-      'Each one uses five colours. With that few, every colour choice matters a lot more.',
-      'It was a good exercise in leaving things out.'
     ]
   },
   {
@@ -75,6 +97,7 @@ window.PROJECTS = [
     tagline: 'A DNA strand made of circuit traces.',
     colors: ['#0b2a52', '#1a6ed8'],
     images: ['kings-medtech-1'],
+    video: { src: 'assets/video/kings-medtech.mp4', poster: 'assets/video/kings-medtech-poster.webp', ar: '1' },
     text: [
       'A logo for the KCL Medical Technology Society. Everything is drawn from scratch. The DNA strand is built from circuit-board traces, a nod to genetic engineering.',
       'The outer shape is deliberately uneven, as if technology is pushing at the edges of medicine.'
@@ -85,29 +108,10 @@ window.PROJECTS = [
     tagline: 'A new look for a vegetarian caterer.',
     colors: ['#6e0b38', '#a3164f'],
     images: ['keshavs-caterers-1'],
+    video: { src: 'assets/video/keshavs-caterers.mp4', poster: 'assets/video/keshavs-caterers-poster.webp', ar: '1' },
     text: [
       'A rebrand for a vegetarian catering company that needed something more modern. The wordmark pairs a serif with Devanagari.',
       'The symmetrical shape behind the type is drawn by hand, a little like the patterns you see at weddings.'
-    ]
-  },
-  {
-    slug: 'rounds', title: 'Rounds', year: '2021', cat: 'Product · Startup', featured: true,
-    tagline: 'Your medical task manager.',
-    colors: ['#3a1410', '#e8572e'],
-    images: ['rounds-1'],
-    text: [
-      'Brand and product visuals for a medical startup making a task manager for doctors on the wards.',
-      'The first project where my medical training shaped the design directly: I knew first-hand what a ward round needs from a task list.'
-    ]
-  },
-  {
-    slug: 'kcl-bsoc', title: 'KCL BSoc', year: '2021', cat: 'Identity',
-    tagline: 'A shapla in bloom.',
-    colors: ['#0c4d2e', '#d6293b'],
-    images: ['kcl-bsoc-1'],
-    text: [
-      'A logo for King’s Bangladesh Society: the shapla, Bangladesh’s national flower, behind a map of the country.',
-      'Circular logos are hard to get right. The gradients give this one some depth, and the green and red come from the flag.'
     ]
   },
   {

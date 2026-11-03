@@ -29,7 +29,13 @@
     const b = el.querySelector('.wm__base-probe').getBoundingClientRect().top - box.top; // baseline
     const i = el.querySelector('.wm__i').getBoundingClientRect();
     const u = em; // shorthand: offsets below are in em so the heartbeat scales with the type
-    const ix = i.left + i.width / 2 - box.left, top = b - .7 * u; // the dot sits where a tittle would
+    // Centre on the stem's ink, not the glyph box (its side-bearings and the tight tracking pull the box off-centre)
+    const iEl = el.querySelector('.wm__i'), cs = getComputedStyle(iEl);
+    const ctx = (draw.ctx ||= document.createElement('canvas').getContext('2d'));
+    ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const m = ctx.measureText('ı');
+    const ink = (m.actualBoundingBoxRight - m.actualBoundingBoxLeft) / 2;
+    const ix = (Number.isFinite(ink) && m.actualBoundingBoxRight ? i.left + ink : i.left + i.width / 2) - box.left, top = b - .7 * u; // the dot sits where a tittle would
     const dot = el.querySelector('.wm__dot');
     dot.style.left = ix + 'px'; dot.style.top = top + 'px';
     const d = [

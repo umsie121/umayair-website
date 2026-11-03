@@ -13,8 +13,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="wordmark.css?v=44" />
-  <link rel="stylesheet" href="styles.css?v=44" />
+  <link rel="stylesheet" href="wordmark.css?v=47" />
+  <link rel="stylesheet" href="styles.css?v=58" />
+  <link rel="stylesheet" href="hq.css?v=47" />
 </head>
 <body>
   <!-- Preloader: a heartbeat whose peak becomes the dot of the i -->
@@ -27,7 +28,6 @@
       <span class="mono">Umayair</span>
       <span class="mono loader__count"><span id="loaderCount">000</span>%</span>
     </div>
-    <div class="loader__words mono"><span>Sketching</span><span>Modelling</span><span>Building</span></div>
   </div>
 
   <div class="grain" aria-hidden="true"></div>
@@ -61,6 +61,10 @@
     </nav>
     <div class="menu__foot mono"><a href="mailto:info@umayair.com">info@umayair.com</a><a href="https://www.instagram.com/umayaircreates" target="_blank" rel="noopener">@umayaircreates</a></div>
   </div>
+
+  <!-- Mobile: where am I on the page -->
+  <div class="where" id="where" aria-hidden="true"><i class="where__bar" id="whereBar"></i></div>
+  <button class="where__pill mono" id="wherePill" type="button" aria-label="Sections menu"><span class="where__ring"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" /><circle class="where__fill" id="whereFill" cx="10" cy="10" r="8" pathLength="1" /></svg></span><b id="whereNum">01</b><span id="whereName">About</span><em>/ 10</em></button>
 
   <main id="top">
     <!-- HERO -->
@@ -134,7 +138,7 @@
     <!-- INDEX -->
     <section class="index" id="index">
       <div class="index__head">
-        <p class="label mono"><span>(03)</span> Full archive</p>
+        <p class="label mono"><span>(03)</span> Other stuff I’ve made</p>
         <p class="index__count mono"><span id="indexCount">00</span> projects</p>
       </div>
       <ol class="index__list" id="indexList"></ol>
@@ -182,6 +186,12 @@
       </div>
     </section>
 
+    <!-- FUN FACT -->
+    <aside class="fact" aria-label="Fun fact">
+      <p class="fact__tag mono"><span class="fact__star" aria-hidden="true">✦</span>Fun fact 01</p>
+      <p class="fact__body">I can say <span class="fact__hello"><span class="fact__say" id="helloSay">Hello</span><span class="fact__lang mono" id="helloLang">English</span></span> in 23 languages. I can hold a conversation in four: English, Arabic, Spanish and Bangla. <span class="fact__aside">And there’s always GCSE French.</span></p>
+    </aside>
+
     <!-- JOURNEY -->
     <section class="journey" id="journey">
       <div class="journey__head">
@@ -203,97 +213,54 @@
     </section>
 
 
-    <!-- BEYOND DESIGN: charity, community, medicine, recognition -->
-    <section class="beyond" id="beyond">
-      <div class="beyond__head">
-        <p class="label mono"><span>(07)</span> Beyond design</p>
-        <h2 class="display">Other things <span class="serif-i grad-text">I've built</span></h2>
-        <p class="beyond__lede">Teams, campaigns and programmes, mostly alongside medical school. None of these were design jobs, but they’re where I learned most of what I know about running things.</p>
+    <!-- FUN FACT -->
+    <aside class="fact fact--r" aria-label="Fun fact">
+      <p class="fact__tag mono"><span class="fact__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Fun fact 02</p>
+      <p class="fact__body">I play guitar, piano, ukulele and the bansuri, a bamboo flute. <span class="fact__aside">Not all at once.</span></p>
+    </aside>
+
+    <!-- OFF THE CLOCK -->
+    <section class="also" id="also">
+      <div class="also__head">
+        <p class="label mono"><span>(07)</span> Off the clock</p>
+        <h2 class="display">Self-taught, <span class="serif-i grad-text">mostly</span></h2>
+        <p class="also__lede">I can’t leave a new thing alone. Nearly everything here came from videos, manuals and getting it wrong a few times first.</p>
       </div>
-
-      <article class="maa">
-        <div class="maa__copy">
-          <p class="mono maa__tag">Maa · Maternal health charity · 2018 – 2021</p>
-          <h3>Making the scoreboard visible</h3>
-          <p>I was elected National Coordinator for MaaMonth, Maa’s yearly fundraising race between university societies. It ran across 26 universities for four weeks, and it had a problem: totals were only revealed at the end, so halfway through nobody knew if they were winning, and momentum died.</p>
-          <p>So every morning, every society got a ranked table of where everyone stood. The rivalries did the rest: teams that slipped ran emergency bake sales, and teams at the top campaigned harder to stay there. We raised more than <strong>£30,000 in four weeks</strong>, a record for the charity at the time. The format stuck. Universities still compete to be MaaMonth Champion, and the campaign has since passed £60,000.</p>
-          <p>In 2019 I flew to Bangladesh with JourneyMaa, the charity’s field project, running antenatal screening camps that saw more than 400 pregnant women in remote villages, and leading menstrual health workshops for teenage girls in Bangla.</p>
-          <p>For a year I hosted <a href="https://podnews.net/podcast/iw0j5" target="_blank" rel="noopener" data-cursor="hover">Maa’s The Word ↗</a>, the charity’s global health podcast, and helped build it: interviews with global health experts, campaigners and people changing things in their communities.</p>
-        </div>
-        <div class="maa__side">
-          <div class="board" aria-label="Illustration of a daily fundraising leaderboard">
-            <p class="mono board__head"><span>MaaMonth · Day <b id="boardDay">1</b></span><span>Live table</span></p>
-            <ol id="board"></ol>
-            <p class="mono board__note">Illustration. Real totals stayed with the societies.</p>
-          </div>
-          <a class="maa__pod" href="https://podnews.net/podcast/iw0j5" target="_blank" rel="noopener" data-cursor="hover">
-            <img src="assets/story/maa-the-word.webp" alt="Maa's The Word podcast cover" loading="lazy" />
-            <span><b>Maa’s The Word</b><span class="mono">Host · 2021 – 2022</span></span>
-          </a>
-        </div>
-      </article>
-
-      <div class="beyond__grid">
-        <article class="bcard tilt" data-cursor="hover" style="--c1:#ffc94a;--c2:#ff8a3d">
-          <p class="mono">Founder · 2020 – 2024</p>
-          <h3>The Submissions Podcast</h3>
-          <p>Started and ran a storytelling podcast with a team of seven volunteers. 24 episodes, listeners in 79 countries, a Spotify Ramadan Recommendation and a live show.</p>
-          <a class="mono bcard__link" href="submissions.html">Read the case study →</a>
+      <div class="also__grid">
+        <article class="also__card">
+          <h3>Photography</h3>
+          <p>I take a lot of photos. They go through Lightroom; video goes through Final Cut Pro or Premiere Pro.</p>
         </article>
-        <article class="bcard tilt" data-cursor="hover" style="--c1:#7a2462;--c2:#ff5e7a">
-          <p class="mono">Co-founder · 2019 – 2023</p>
-          <h3>KCLevate</h3>
-          <p>A year-long mentoring programme for Year 12 students in Tower Hamlets and Newham applying to Medicine, Dentistry and Law. About 45 mentees a cohort, 200+ so far. I secured the funding that made it self-sustaining, and it still runs.</p>
+        <article class="also__card">
+          <h3>Tools</h3>
+          <ul class="also__chips mono"><li>Logic Pro</li><li>Photoshop</li><li>Illustrator</li><li>After Effects</li><li>Lightroom</li><li>Final Cut Pro</li><li>Premiere Pro</li></ul>
         </article>
-        <article class="bcard tilt" data-cursor="hover" style="--c1:#18c5a8;--c2:#2f7bff">
-          <p class="mono">Resident doctor · 2023 – 2025</p>
-          <h3>The NHS</h3>
-          <p>Worked at two London hospital trusts and was elected rep for 80+ resident doctors. Founded the Digital Informatics Society at Barts Health, which produced training on clinical systems and note-taking used across the Trust.</p>
+        <article class="also__card">
+          <h3>Smart home</h3>
+          <p>An Apple household, all the way down. The whole house is a smart home, and the <a href="#/work/frame" data-cursor="hover">Family Frame</a> sits on top of it.</p>
         </article>
-        <article class="bcard tilt" data-cursor="hover" style="--c1:#7b5cff;--c2:#18c5a8">
-          <p class="mono">Teacher · 2020 – 2023</p>
-          <h3>Arabic, online</h3>
-          <p>Taught weekly Arabic classes to more than 50 adult students in the UK, USA, Nigeria and Spain, three years after learning the language from scratch.</p>
+        <article class="also__card">
+          <h3>3D printing</h3>
+          <p>A Bambu Lab A1 that runs most days. <a href="#workshop" data-cursor="hover">Everything it has made</a> is just below.</p>
         </article>
-        <article class="bcard tilt" data-cursor="hover" style="--c1:#ff5e7a;--c2:#ffc94a">
-          <p class="mono">Student trustee · 2018 – 2019</p>
-          <h3>KCL Students’ Union</h3>
-          <p>Elected as one of four student trustees, from more than 30 applicants, for a union of 30,000+ students. Led the push for more inclusive events, which raised attendance from under-represented groups by 40%.</p>
-        </article>
-      </div>
-
-      <div class="honours">
-        <div>
-          <p class="mono honours__h">Awards</p>
-          <ul>
-            <li><span>Certificate of Merit, Clinical Excellence</span><i class="mono">London Foundation School · 2024</i></li>
-            <li><span>Certificate of Merit, Leadership</span><i class="mono">London Foundation School · 2024</i></li>
-            <li><span>Treasurer’s Prize</span><i class="mono">King’s College London School of Medical Education · 2021</i></li>
-            <li><span>Silver Crown Award, for founding and leading KCLevate</span><i class="mono">KCL Students’ Union · 2020</i></li>
-          </ul>
-        </div>
-        <div>
-          <p class="mono honours__h">Published papers</p>
-          <ul>
-            <li><span>Is Bangladesh ready to adopt breast-conserving surgery? A tertiary cancer centre’s experience</span><i class="mono">European Journal of Surgical Oncology · 2023</i></li>
-            <li><span>What are the barriers and facilitators to seeking help for mental health in NHS doctors: a systematic review and qualitative study</span><i class="mono">BMC Psychiatry · 2022</i></li>
-            <li><span>Cost-utility analysis of oxybutynin vs. OnabotulinumtoxinA (Botox) in the treatment of overactive bladder syndrome</span><i class="mono">Int. J. Environmental Research and Public Health · 2021</i></li>
-          </ul>
-        </div>
       </div>
     </section>
 
-    <!-- WORKSHOP (3D print log from the Family Frame) -->
+    <!-- WORKSHOP -->
     <section class="shop" id="workshop">
       <div class="shop__head">
         <p class="label mono"><span>(08)</span> Workshop</p>
         <h2 class="display">Made, <span class="serif-i grad-text">not bought</span></h2>
-        <p class="shop__lede">Every successful print off my Bambu Lab printer since <span id="shopSince">August</span>, logged by my <a href="#/work/frame" data-cursor="hover">Family Frame</a>. Clickers, stands, a T-Rex skull, and fixes for things around the house.</p>
+        <p class="shop__lede">Every successful print off my Bambu Lab A1 from <span id="shopSince">August</span> to <span id="shopUntil">November</span>, logged by my <a href="#/work/frame" data-cursor="hover">Family Frame</a>. Clickers, stands, a T-Rex skull, and fixes for things around the house.</p>
       </div>
       <dl class="shop__stats" id="shopStats"></dl>
       <div class="shop__bars" id="shopBars" aria-hidden="true"></div>
-      <div class="shop__filters" id="shopFilters" role="group" aria-label="Filter prints"></div>
-      <ol class="shop__grid" id="shopGrid"></ol>
+      <button class="shop__toggle" id="shopToggle" type="button" aria-expanded="false" aria-controls="shopDrawer" data-cursor="hover"><span id="shopToggleLabel">Show the prints</span> <i class="mono" id="shopToggleN"></i><b aria-hidden="true">↓</b></button>
+      <div class="shop__drawer" id="shopDrawer" hidden>
+        <div class="shop__filters" id="shopFilters" role="group" aria-label="Filter prints"></div>
+        <ol class="shop__grid" id="shopGrid"></ol>
+        <nav class="shop__pages mono" id="shopPages" aria-label="Print pages"></nav>
+      </div>
     </section>
 
     <!-- NOW -->
@@ -363,6 +330,7 @@
   <div class="overlay" id="overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
     <div class="overlay__bg"></div>
     <div class="overlay__panel" id="ovPanel" data-lenis-prevent>
+      <iframe class="overlay__frame" id="ovFrame" title="Case study" tabindex="-1"></iframe>
       <button class="overlay__close magnetic" id="ovClose" data-cursor="hover" aria-label="Close project">Close <span>✕</span></button>
       <div class="overlay__hero">
         <p class="mono overlay__meta"><span id="ovIdx">01</span> / <span id="ovCat">Identity</span><span id="ovYear"> / 2021</span></p>
@@ -383,9 +351,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
   <div class="lightbox" id="lightbox" aria-hidden="true" data-lenis-prevent><button class="lightbox__close mono" id="lbClose" data-cursor="hover">Close ✕</button><figure><img id="lbImg" alt="" /><figcaption><span class="mono" id="lbMeta"></span><p id="lbCap"></p></figcaption></figure></div>
-  <script src="wordmark.js?v=44"></script>
-  <script src="data.js?v=44"></script>
-  <script src="prints.js?v=44"></script>
-  <script src="main.js?v=44"></script>
+  <script src="wordmark.js?v=48"></script>
+  <script src="data.js?v=55"></script>
+  <script src="prints.js?v=47"></script>
+  <script src="main.js?v=61"></script>
+  <script src="hq.js?v=47"></script>
 </body>
 </html>

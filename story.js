@@ -24,6 +24,7 @@
   const FIGS = [
     'Fig. 1 — The Ka‘bah, as a cube',
     'Fig. 2 — First drafts, 2020',
+    'Fig. 2b — The same draft at 60 pixels',
     'Fig. 3 — Seen from the corner',
     'Fig. 4 — The band becomes a gap',
     'Fig. 5 — The final mark',
@@ -42,31 +43,103 @@
   };
   $$('.stage__svg polygon').forEach(el => (el.style.transition = 'fill .8s, opacity .8s'));
 
-  let readTimer = null;
+  let readTimer = null, critTimer = null;
   const show = i => {
     $('#stageFig').textContent = FIGS[i];
     const dur = reduced ? 0 : 1.2;
-    set(i >= 2 ? 'mark' : 'cube', dur);
-    solid(i >= 3);
-    frame.classList.toggle('is-yellow', i >= 3);
+    set(i >= 3 ? 'mark' : 'cube', dur);
+    solid(i >= 4);
+    frame.classList.toggle('is-yellow', i >= 4);
+    // The drafts: fanned out, then the front one critiqued, then shrunk to app-icon size
     $('#stageDrafts').classList.toggle('on', i === 1);
-    $('.stage__svg').style.opacity = i === 1 ? .12 : 1;
-    $('#noteCorner').classList.toggle('on', i === 2);
-    $('#noteGap').classList.toggle('on', i === 3);
-    $('#stageFinal').classList.toggle('on', i >= 4);
-    $('#readings').classList.toggle('on', i === 5);
+    clearTimeout(critTimer); $('#stageDrafts').classList.remove('is-crit'); $('#crit').classList.remove('on');
+    if (i === 1) critTimer = setTimeout(() => { $('#stageDrafts').classList.add('is-crit'); $('#crit').classList.add('on'); }, reduced ? 0 : 1100);
+    $('#small').classList.toggle('on', i === 2);
+    $('.stage__svg').style.opacity = i === 1 || i === 2 ? 0 : 1;
+    $('#noteCorner').classList.toggle('on', i === 3);
+    $('#noteGap').classList.toggle('on', i === 4);
+    $('#stageFinal').classList.toggle('on', i >= 5);
+    $('#readings').classList.toggle('on', i === 6);
     clearInterval(readTimer);
-    if (i === 5) { // cycle the three readings
+    if (i === 6) { // cycle the three readings
       let r = 0; const tick = () => { $$('.reading').forEach(g => g.classList.toggle('on', +g.dataset.r === r)); r = (r + 1) % 3; };
       tick(); readTimer = setInterval(tick, 2200);
     }
-    $$('.step').forEach(s => s.classList.toggle('is-active', +s.dataset.step === i));
+    $$('.step[data-step]').forEach(s => s.classList.toggle('is-active', +s.dataset.step === i));
   };
   set('cube', 0); show(0);
 
   // Which step is in the middle of the screen
   const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && show(+e.target.dataset.step)), { rootMargin: '-45% 0px -45% 0px' });
-  $$('.step').forEach(s => io.observe(s));
+  $$('.step[data-step]').forEach(s => io.observe(s));
+
+
+  // Part three: one portrait built up as you scroll (scrubbed), then the whole set.
+  // Layers are the portrait's flat colours, largest first; the outlines come from the same layers.
+  const psvg = $('#psvg');
+  let ptl = null;
+  if (psvg && window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    const NS = 'http://www.w3.org/2000/svg';
+    const E = (tag, a = {}, parent = psvg) => { const el = document.createElementNS(NS, tag); for (const k in a) el.setAttribute(k, a[k]); parent.appendChild(el); return el; };
+    const COLS = ['#e3dcf2', '#c5bfde', '#d9a072', '#3d2b1a'], BP = '#a9d6ff';
+    const defs = E('defs');
+    const pat = E('pattern', { id: 'pgrid', width: 80, height: 80, patternUnits: 'userSpaceOnUse' }, defs);
+    E('path', { d: 'M80,0 H0 V80', fill: 'none', stroke: BP, 'stroke-width': 1.5, opacity: .25 }, pat);
+    const f = E('filter', { id: 'pout', x: '-5%', y: '-5%', width: '110%', height: '110%' }, defs);
+    E('feMorphology', { in: 'SourceAlpha', operator: 'dilate', radius: 3, result: 'd' }, f);
+    E('feComposite', { in: 'd', in2: 'SourceAlpha', operator: 'out', result: 'o' }, f);
+    E('feFlood', { 'flood-color': BP }, f); E('feComposite', { in2: 'o', operator: 'in' }, f);
+    const bp = E('g'); E('rect', { width: 1600, height: 1600, fill: '#163a5a' }, bp); E('rect', { width: 1600, height: 1600, fill: 'url(#pgrid)' }, bp);
+    const guide = E('g', { fill: 'none', stroke: BP, 'stroke-width': 3 });
+    const dash = (d, a = {}) => E('path', { d, pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1, ...a }, guide);
+    const axis = dash('M800,120 V1600', { opacity: .5 });
+    const head = dash('M610,640 A190,250 0 1 1 990,640 A190,250 0 1 1 610,640', { opacity: .6 });
+    const shoulders = dash('M260,1600 Q300,1180 800,1130 Q1300,1180 1340,1600', { opacity: .6 });
+    const art = E('g');
+    const layers = COLS.map((c, i) => ({
+      out: E('image', { href: `assets/story/portrait/u-${i}.webp`, width: 1600, height: 1600, filter: 'url(#pout)', opacity: 0 }, art),
+      fill: E('image', { href: `assets/story/portrait/u-${i}.webp`, width: 1600, height: 1600, opacity: 0 }, art)
+    }));
+    // fills go under the outlines
+    layers.forEach(l => art.insertBefore(l.fill, art.firstChild));
+    const real = E('image', { href: 'assets/work/submissions-illustrations-5.webp', width: 1600, height: 1600, opacity: 0 }, art);
+    const sw = E('g'); const dots = COLS.map((c, i) => E('circle', { cx: 1140 + i * 70, cy: 1490, r: 0, fill: c, stroke: '#131313', 'stroke-opacity': .2, 'stroke-width': 3 }, sw));
+    const yellowDot = E('circle', { cx: 1070, cy: 1490, r: 0, fill: '#fbc528', stroke: '#131313', 'stroke-opacity': .2, 'stroke-width': 3 }, sw);
+    const note = E('g', { fill: 'none', stroke: '#131313', 'stroke-width': 3, opacity: 0 });
+    E('ellipse', { cx: 800, cy: 700, rx: 210, ry: 250, 'stroke-dasharray': '14 12' }, note);
+    E('path', { d: 'M1010,700 H1210' }, note);
+    const t = E('text', { x: 1220, y: 690, fill: '#131313', stroke: 'none', 'font-family': 'JetBrains Mono, monospace', 'font-size': 34 }, note); t.textContent = 'no eyes,';
+    const t2 = E('text', { x: 1220, y: 735, fill: '#131313', stroke: 'none', 'font-family': 'JetBrains Mono, monospace', 'font-size': 34 }, note); t2.textContent = 'no mouth';
+    const set = $$('#pset img');
+    const FIGS = ['Fig. 12 — Line work', 'Fig. 13 — Four colours and the yellow', 'Fig. 14 — Left blank on purpose', 'Fig. 15 — Light and shade', 'Fig. 16 — The team'];
+
+    ptl = gsap.timeline({ paused: true, defaults: { ease: 'none' } });
+    ptl.to(axis, { attr: { 'stroke-dashoffset': 0 }, duration: .3 }, .05).to(head, { attr: { 'stroke-dashoffset': 0 }, duration: .35 }, .15)
+      .to(shoulders, { attr: { 'stroke-dashoffset': 0 }, duration: .35 }, .25);
+    layers.forEach((l, i) => ptl.to(l.out, { opacity: 1, duration: .15 }, .35 + i * .14));
+    // 1 → 2: blueprint gives way to yellow, colours fill in largest first
+    ptl.to(bp, { opacity: 0, duration: .3 }, 1.0).to(guide, { opacity: 0, duration: .3 }, 1.0).to(yellowDot, { attr: { r: 24 }, duration: .1 }, 1.05);
+    layers.forEach((l, i) => {
+      ptl.fromTo(l.fill, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: .16 }, 1.15 + i * .17)
+        .to(dots[i], { attr: { r: 24 }, duration: .1 }, 1.15 + i * .17)
+        .to(l.out, { opacity: 0, duration: .16 }, 1.2 + i * .17);
+    });
+    // 2 → 3: the face that isn't there
+    ptl.to(note, { opacity: 1, duration: .25 }, 2.1).to(note, { opacity: 0, duration: .2 }, 2.8);
+    // 3 → 4: light and shade
+    ptl.to(real, { opacity: 1, duration: .6 }, 3.1).to(sw, { opacity: 0, duration: .3 }, 3.5);
+    // 4 → 5: the portrait joins the rest of the team
+    ptl.to(psvg, { scale: .27, yPercent: -15, duration: .5 }, 4.05).to(psvg, { opacity: 0, duration: .05 }, 4.55)
+      .fromTo(set, { opacity: 0, scale: .9 }, { opacity: 1, scale: 1, duration: .3, stagger: .06 }, 4.3)
+      .to({}, { duration: .2 }, 4.8);
+    ScrollTrigger.create({
+      trigger: '#portraits', start: 'top top', end: 'bottom bottom', scrub: .5,
+      onUpdate: st => { ptl.progress(st.progress); $('#pfig').textContent = FIGS[Math.min(4, Math.floor(st.progress * 5))]; }
+    });
+    const pio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && $$('.pstep').forEach(s => s.classList.toggle('is-active', s === e.target))), { rootMargin: '-45% 0px -45% 0px' });
+    $$('.pstep').forEach(s => pio.observe(s));
+  }
 
   // Gentle reveals for book content
   $$('.spread .h2, .spread .lede, .pull, .flow li, .plate, .wall img, .timeline li, .stats div, .rubin, .part h2').forEach(el => el.classList.add('reveal'));
@@ -76,6 +149,7 @@
   // Smooth scroll, same feel as the main site
   if (window.Lenis && !reduced) {
     const lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    if (window.ScrollTrigger) lenis.on('scroll', ScrollTrigger.update);
     const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf);
   }
 })();

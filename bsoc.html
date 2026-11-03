@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KCL BSOC — A shapla in bloom</title>
+  <meta name="description" content="Redrawing the King's College London Bangladesh Society logo, 2019: the flag, the shapla and a mark that works at any size." />
+  <meta property="og:image" content="https://umayair.com/assets/work/kcl-bsoc-1.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400&family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="wordmark.css?v=41" />
+  <link rel="stylesheet" href="story.css?v=10" />
+  <link rel="stylesheet" href="bsoc.css?v=2" />
+  <script src="embed.js?v=1"></script>
+</head>
+<body>
+  <header class="bar">
+    <a class="bar__home" href="index.html#index" aria-label="Back to Umayair's work"><span data-wordmark="nav" data-lead="0.6"></span></a>
+    <span class="mono bar__crumb">Case study <i>/</i> KCL BSOC</span>
+    <a class="mono bar__back" href="index.html#index">← All work</a>
+  </header>
+
+  <main>
+    <section class="cover">
+      <p class="mono cover__kicker">A case study · 2019 – 2020</p>
+      <h1 class="cover__title">KCL BSOC</h1>
+      <p class="cover__sub">A new mark for King’s College London Bangladesh Society, drawn the year I was its president.</p>
+      <dl class="cover__meta mono">
+        <div><dt>Role</dt><dd>President · designer</dd></div>
+        <div><dt>Years</dt><dd>Sept 2019 – Aug 2020</dd></div>
+        <div><dt>Used on</dt><dd>Socials, posters, banners, hoodies</dd></div>
+        <div><dt>Palette</dt><dd><i style="--c:#0b6b46"></i>Green <i style="--c:#f2384a"></i>Red</dd></div>
+      </dl>
+      <img class="cover__mark" src="assets/work/kcl-bsoc-1.webp" alt="The KCL BSOC logo: a green circle, ten red shapla petals, a white band with KCL and BSOC, and the map of Bangladesh in the centre" />
+    </section>
+
+    <section class="spread preface">
+      <p class="mono folio">Preface</p>
+      <div class="spread__body">
+        <h2 class="h2">A society needs a face</h2>
+        <p class="lede">A student society’s logo works harder than most. It’s on every Instagram post, every poster on a noticeboard, the banner at freshers’ fair and, if it goes well, the hoodies people wear for years afterwards.</p>
+        <p>When I took over as president in September 2019, our logo couldn’t do most of that. So alongside running the society, I redrew it.</p>
+      </div>
+    </section>
+
+    <div class="part"><p class="mono">Part one</p><h2>The mark</h2></div>
+
+    <section class="process" id="mark">
+      <div class="stage" aria-hidden="true">
+        <div class="stage__frame bframe" id="bframe">
+          <svg class="stage__svg" id="bsvg" viewBox="0 0 1000 1000">
+            <defs>
+              <radialGradient id="pg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff5a63" /><stop offset="1" stop-color="#ee2f45" /></radialGradient>
+              <clipPath id="circ"><circle cx="500" cy="500" r="480" /></clipPath>
+              <pattern id="bgrid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50,0 H0 V50" fill="none" stroke="#a9d6ff" stroke-width="1" opacity=".3" /></pattern>
+            </defs>
+            <g id="bp" opacity="0"><rect width="1000" height="1000" fill="#163a5a" /><rect width="1000" height="1000" fill="url(#bgrid)" /></g>
+
+            <g id="old">
+              <image href="assets/bsoc/old.webp" x="150" y="190" width="700" height="555" />
+              <g class="omk" fill="none" stroke="#ff3b5c" stroke-width="4">
+                <g class="om"><circle cx="483" cy="456" r="255" stroke-dasharray="14 10" /><path d="M700,330 L800,250 H960" /><text x="960" y="238" text-anchor="end">ornament that clogs up</text></g>
+                <g class="om"><circle cx="483" cy="456" r="150" /><path d="M370,560 L250,800 H60" /><text x="60" y="830">text on a curve</text></g>
+                <g class="om"><path d="M100,880 H900" /><text x="500" y="930" text-anchor="middle">no white version, no clear silhouette</text></g>
+              </g>
+            </g>
+
+            <g id="brief" opacity="0" font-family="Inter Tight, sans-serif" font-size="40" fill="#141414">
+              <text x="160" y="250" font-family="JetBrains Mono, monospace" font-size="24" fill="rgba(20,20,20,.5)">THE BRIEF</text>
+              <text class="bl" x="160" y="340">○  Carry the flag</text>
+              <text class="bl" x="160" y="420">○  Rotational symmetry</text>
+              <text class="bl" x="160" y="500">○  Feature the shapla</text>
+              <text class="bl" x="160" y="580">○  Scale down cleanly</text>
+              <text class="bl" x="160" y="660">○  Recognisable at a glance</text>
+              <text class="bl" x="160" y="740">○  Print in one colour</text>
+            </g>
+
+            <rect id="field" x="100" y="260" width="800" height="480" rx="0" fill="#0b6b46" opacity="0" />
+            <circle id="sun" cx="460" cy="500" r="160" fill="#f2384a" opacity="0" />
+
+            <g id="cons" fill="none" stroke="#a9d6ff" stroke-width="2.5" opacity=".9">
+              <circle class="dl" cx="500" cy="500" r="432" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" />
+            </g>
+
+            <g id="petals" clip-path="url(#circ)"></g>
+            <path id="pen" d="M500,500 Q666,284 500,68 Q334,284 500,500 Z" fill="none" stroke="#a9d6ff" stroke-width="5" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" />
+
+            <g id="band" clip-path="url(#circ)">
+              <rect id="bandRect" x="500" y="389" width="0" height="222" fill="#fff" />
+              <text id="tKCL" x="77" y="545" textLength="215" lengthAdjust="spacingAndGlyphs" font-family="Montserrat, sans-serif" font-weight="700" font-size="118" fill="#24292e" opacity="0">KCL</text>
+              <text id="tBSOC" x="670" y="545" textLength="290" lengthAdjust="spacingAndGlyphs" font-family="Montserrat, sans-serif" font-weight="700" font-size="118" fill="#24292e" opacity="0">BSOC</text>
+            </g>
+            <circle id="disc" cx="500" cy="500" r="0" fill="#fff" />
+            <image id="mapG" href="assets/bsoc/map-green.png" x="426" y="400" width="148" height="200" opacity="0" />
+            <image id="mapW" href="assets/bsoc/map-white.png" x="426" y="400" width="148" height="200" opacity="0" />
+          </svg>
+          <div class="small" id="bsmall">
+            <div class="small__row">
+              <i></i><i></i><figure><img src="assets/bsoc/old.webp" alt="" /><figcaption class="mono">Before</figcaption></figure><i></i>
+            </div>
+            <p class="mono small__note">Profile-picture size. The stamp turns into a smudge; the flower still reads.</p>
+            <div class="small__row small__row--after">
+              <i></i><i></i><figure><img src="assets/work/kcl-bsoc-1.webp" alt="" /><figcaption class="mono">After</figcaption></figure><i></i>
+            </div>
+          </div>
+          <p class="stage__fig mono" id="bfig">Fig. 1 — The old mark</p>
+        </div>
+      </div>
+
+      <ol class="steps">
+        <li class="step bstep">
+          <p class="mono step__n">01</p>
+          <h3>The old mark</h3>
+          <p>The society’s logo was a circular stamp: an ornate ring, the name set around a curve and KCL in the middle. It had character, but it didn’t scale, there was no white version for dark backgrounds, it was hard to read, and it had so many elements that nobody could picture it from memory.</p>
+        </li>
+        <li class="step bstep">
+          <p class="mono step__n">02</p>
+          <h3>Write the brief</h3>
+          <p>The new one had to carry the Bangladeshi flag, have some form of rotational symmetry and feature the shapla, the national flower. It had to scale down cleanly, be recognisable at a glance and print onto merch and posters in one colour.</p>
+        </li>
+        <li class="step bstep">
+          <p class="mono step__n">03</p>
+          <h3>Start from the flag</h3>
+          <p>The flag is a red disc on a green field. Pull the field into a circle and bring the disc to the centre, and the palette and the outline are already decided.</p>
+        </li>
+        <li class="step bstep">
+          <p class="mono step__n">04</p>
+          <h3>Draw one petal</h3>
+          <p>The shapla is a water lily. Each petal is a simple pointed curve, drawn once from the centre out to a guide circle.</p>
+        </li>
+        <li class="step bstep">
+          <p class="mono step__n">05</p>
+          <h3>Turn it ten times</h3>
+          <p>Rotated around the centre in steps of 36 degrees, ten copies make the flower. That’s the rotational symmetry from the brief, and it comes straight from the shapla itself. Filled in the flag’s red on the flag’s green.</p>
+        </li>
+        <li class="step bstep">
+          <p class="mono step__n">06</p>
+          <h3>A band for the name</h3>
+          <p>A white band runs across the middle for KCL and BSOC, set in a heavy geometric sans that stays legible when it’s small.</p>
+        </li>
+        <li class="step bstep">
+          <p class="mono step__n">07</p>
+          <h3>The country at the centre</h3>
+          <p>Where the flag’s red disc sat, a white circle now holds the map of Bangladesh.</p>
+        </li>
+        <li class="step bstep">
+          <p class="mono step__n">08</p>
+          <h3>Make it work in one colour</h3>
+          <p>Because it’s built from flat shapes, the whole mark becomes line art in a single colour: white on maroon, or maroon on white. That’s the version on the banner, the posters and the hoodies.</p>
+        </li>
+        <li class="step bstep">
+          <p class="mono step__n">09</p>
+          <h3>Test it small</h3>
+          <p>Most people see a society’s logo as a profile picture. At that size the old stamp became a smudge. The new one still reads: a circle, a flower, a band.</p>
+        </li>
+      </ol>
+    </section>
+
+    <div class="part"><p class="mono">Part two</p><h2>In use</h2></div>
+
+    <section class="spread">
+      <p class="mono folio">Merch</p>
+      <div class="spread__body">
+        <h2 class="h2">Hoodies</h2>
+        <p class="lede">Maroon hoodies for the committee: the one-colour mark on the chest, the country on the back with a name and a role, and Bangla lettering down the sleeve.</p>
+      </div>
+      <div class="hoodies">
+        <figure class="plate">
+          <svg viewBox="0 0 400 440" class="hoodie" aria-label="Hoodie, front">
+            <path class="hd-hood" d="M128,98 Q126,28 200,22 Q274,28 272,98 Z" />
+            <path class="hd-body" d="M118,92 Q200,64 282,92 L356,134 Q382,148 386,176 L400,378 Q402,396 386,398 L350,402 Q336,402 334,388 L318,232 L318,418 Q318,432 304,432 L96,432 Q82,432 82,418 L82,232 L66,388 Q64,402 50,402 L14,398 Q-2,396 0,378 L14,176 Q18,148 44,134 Z" />
+            <path class="hd-line" d="M150,90 Q200,160 250,90" /><path class="hd-line" d="M186,120 L183,196 M214,120 L217,196" />
+            <path class="hd-line" d="M138,330 H262 L278,398 H122 Z" /><path class="hd-line" d="M82,410 H318 M18,380 H64 M336,380 H382" />
+            <g transform="translate(218 150) scale(.068)"><use href="#monoMark" /></g>
+          </svg>
+          <figcaption class="mono">Front: the one-colour mark on the chest</figcaption>
+        </figure>
+        <figure class="plate">
+          <svg viewBox="0 0 400 440" class="hoodie" aria-label="Hoodie, back">
+            <path class="hd-body" d="M118,92 Q200,64 282,92 L356,134 Q382,148 386,176 L400,378 Q402,396 386,398 L350,402 Q336,402 334,388 L318,232 L318,418 Q318,432 304,432 L96,432 Q82,432 82,418 L82,232 L66,388 Q64,402 50,402 L14,398 Q-2,396 0,378 L14,176 Q18,148 44,134 Z" />
+            <path class="hd-hood back" d="M126,96 Q122,20 200,16 Q278,20 274,96 Q240,128 200,130 Q160,128 126,96 Z" />
+            <path class="hd-line" d="M82,410 H318 M18,380 H64 M336,380 H382" />
+            <text x="200" y="182" text-anchor="middle" class="hd-name">YOUR NAME</text>
+            <text x="200" y="204" text-anchor="middle" class="hd-role">COMMITTEE ROLE</text>
+            <image href="assets/bsoc/map-white.png" x="160" y="216" width="80" height="108" opacity=".92" />
+          </svg>
+          <figcaption class="mono">Back: a name, a role and the country</figcaption>
+        </figure>
+      </div>
+      <p class="caption mono">Fig. 10 — Redrawn as flat illustrations from photos of the real hoodies</p>
+    </section>
+
+    <section class="spread">
+      <p class="mono folio">Print</p>
+      <div class="spread__body">
+        <h2 class="h2">Posters and the banner</h2>
+        <p class="lede">The one-colour version sat in the corner of every poster, so the society was recognisable before anyone read a word. The pull-up banner made it big.</p>
+      </div>
+      <div class="plates plates--2">
+        <figure class="plate"><img src="assets/bsoc/poster.webp" alt="Meet and Greet poster, Friday 4 October 2019" loading="lazy" /><figcaption class="mono">Fig. 11 — Meet &amp; Greet, October 2019</figcaption></figure>
+        <figure class="plate"><img src="assets/bsoc/banner.webp" alt="KCL Bangladesh Society pull-up banner at Bush House" loading="lazy" /><figcaption class="mono">Fig. 12 — The pull-up banner at Bush House</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="coda">
+      <blockquote class="coda__quote"><p>“Design is thinking made visual.”</p><cite class="mono">Saul Bass</cite></blockquote>
+      <a class="coda__next" href="index.html#index"><span class="mono">Back to</span> all work →</a>
+    </section>
+  </main>
+
+  <!-- the one-colour mark, reused by the hoodie illustrations -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <clipPath id="mcirc"><circle cx="500" cy="500" r="480" /></clipPath>
+      <g id="monoMark">
+        <circle cx="500" cy="500" r="480" fill="#fff" />
+        <g clip-path="url(#mcirc)" fill="none" stroke="#7a1631" stroke-width="16" id="monoPetals"></g>
+        <rect x="0" y="389" width="1000" height="222" fill="#7a1631" clip-path="url(#mcirc)" />
+        <text x="77" y="545" textLength="215" lengthAdjust="spacingAndGlyphs" font-family="Montserrat, sans-serif" font-weight="700" font-size="118" fill="#fff">KCL</text>
+        <text x="670" y="545" textLength="290" lengthAdjust="spacingAndGlyphs" font-family="Montserrat, sans-serif" font-weight="700" font-size="118" fill="#fff">BSOC</text>
+        <circle cx="500" cy="500" r="163" fill="#7a1631" />
+        <image href="assets/bsoc/map-white.png" x="426" y="400" width="148" height="200" />
+      </g>
+    </defs>
+  </svg>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="wordmark.js?v=48"></script>
+  <script src="bsoc.js?v=1"></script>
+</body>
+</html>

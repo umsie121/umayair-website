@@ -1,0 +1,16 @@
+/* KCL BSOC case study: extras on top of story.css */
+.bframe { background: var(--paper-2); }
+#bsvg { transform-origin: 50% 50%; }
+.omk text { font: 500 26px var(--mono, monospace); letter-spacing: .06em; text-transform: uppercase; fill: #ff3b5c; stroke: none; }
+.bstep:first-child { padding-top: 0; }
+.hoodies { grid-column: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 20px; }
+.hoodie { width: 100%; display: block; background: var(--paper-2); border-radius: 4px; padding: 8% 10%; box-sizing: border-box; }
+.hd-body, .hd-hood { fill: #7a1631; }
+.hd-hood { fill: #651127; }
+.hd-hood.back { fill: #6d1329; }
+.hd-line { fill: none; stroke: #4e0b1d; stroke-width: 2.5; stroke-linecap: round; }
+.hd-name { font: 700 17px 'Montserrat', sans-serif; fill: #fff; letter-spacing: .04em; }
+.hd-role { font: 500 11px 'Inter Tight', sans-serif; fill: #fff; letter-spacing: .12em; }
+.plates--2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) { .hoodies { grid-column: 1; } }
+.coda__quote p { color: #ff5a63; }

@@ -47,7 +47,7 @@
   track.innerHTML = featured.map((p, i) => `
     <article class="feature" data-slug="${p.slug}" data-cursor="view" style="--c1:${p.colors[0]};--c2:${p.colors[1]}" tabindex="0" role="button" aria-label="Open ${p.title}">
       <div class="feature__bg"></div>
-      <div class="feature__img"${p.video ? ' style="--ar:16/9"' : ''}>${p.video ? filmTag(p) : `<img src="${img(p.images[0])}" alt="${p.title} — ${p.cat}" loading="lazy" />`}</div>
+      <div class="feature__img"${p.video ? ` style="--ar:${p.video.ar}"` : ''}>${p.video ? filmTag(p) : `<img src="${img(p.images[0])}" alt="${p.title} — ${p.cat}" loading="lazy" />`}</div>
       <div class="feature__info">
         <span class="feature__num">${pad(i + 1)} / ${pad(featured.length)}</span>
         <h3 class="feature__title">${p.title}</h3>
@@ -56,9 +56,9 @@
       </div>
     </article>`).join('') + `
     <div class="feature feature--end">
-      <p class="mono" style="color:var(--ink-3);margin:0">+ ${P.length - featured.length} more in the archive</p>
+      <p class="mono" style="color:var(--ink-3);margin:0">+ ${P.length - featured.length} more below</p>
       <h3>That's the <span class="serif-i grad-text">highlights.</span></h3>
-      <a href="#index" class="btn magnetic" data-cursor="hover"><span>Browse the archive ↓</span></a>
+      <a href="#index" class="btn magnetic" data-cursor="hover"><span>See the rest ↓</span></a>
     </div>`;
 
   // Size each frame to its artwork's own proportions so logos are never cropped.
@@ -67,7 +67,8 @@
     im.complete ? fit() : im.addEventListener('load', fit);
   });
 
-  $('#indexList').innerHTML = P.map((p, i) => `
+  const others = P.filter(p => !p.featured); // the archive lists only what isn't in the grid above
+  $('#indexList').innerHTML = others.map((p, i) => `
     <li class="index__item" style="--c1:${p.colors[0]};--c2:${p.colors[1]}">
       <button data-slug="${p.slug}" data-img="${img(p.images[0])}" data-cursor="view">
         <span class="index__n">${pad(i + 1)}</span>
@@ -76,7 +77,7 @@
         <span class="index__year">${p.year}</span>
       </button>
     </li>`).join('');
-  $('#indexCount').textContent = pad(P.length);
+  $('#indexCount').textContent = pad(others.length);
   $('#projectCount').textContent = P.length;
 
   /* ---------------- Sketchbook (Instagram posts, hosted here) ---------------- */
@@ -109,6 +110,9 @@
   const longest = PR.items.reduce((a, b) => (b.m > a.m ? b : a), PR.items[0] || { m: 0, t: '' });
   const sinceD = new Date(PR.since);
   $('#shopSince').textContent = `${sinceD.getDate()} ${MONTHS[sinceD.getMonth()]} ${sinceD.getFullYear()}`;
+  // A fixed snapshot (prints.js is never synced), so the range is stated, not "until now"
+  const untilD = new Date(PR.items.reduce((a, p) => (p.at > a ? p.at : a), PR.since));
+  $('#shopUntil').textContent = `${untilD.getDate()} ${MONTHS[untilD.getMonth()]} ${untilD.getFullYear()}`;
   $('#shopStats').innerHTML = [
     [PR.items.length, 'things printed'],
     [Math.round(totalMin / 60), 'hours on the bed'],
@@ -129,52 +133,58 @@
   const topTags = Object.keys(tagCount).filter(t => t !== 'Misc').sort((a, b) => tagCount[b] - tagCount[a]).slice(0, 8);
   $('#shopFilters').innerHTML = [`<button class="is-on" data-tag="" data-cursor="hover">All <i>${PR.items.length}</i></button>`]
     .concat(topTags.map(t => `<button data-tag="${t}" data-cursor="hover" style="--tc:${PR.tags[t]}">${t} <i>${tagCount[t]}</i></button>`)).join('');
-  $('#shopGrid').innerHTML = PR.items.map(p => `
-    <li class="print" data-tag="${p.tag}" style="--tc:${PR.tags[p.tag] || '#8e8e93'}" tabindex="0">
+  // The prints sit in a drawer, a page at a time
+  const PER = 18; let shopTag = '', shopPage = 0;
+  const printCard = (p, d) => `
+    <li class="print pop" style="--tc:${PR.tags[p.tag] || '#8e8e93'};--d:${d}" tabindex="0">
       <div class="print__img">${p.img ? `<img src="assets/prints/${p.id}.jpg" alt="${p.t}" loading="lazy" />` : '<span class="print__none" aria-hidden="true">◇</span>'}</div>
       <div class="print__info"><b>${p.t}</b><span class="mono">${hrs(p.m)}${p.n > 1 ? ` · ×${p.n}` : ''} · ${fmtDate(p.at).replace(/ \d{4}$/, '')}</span></div>
-    </li>`).join('');
+    </li>`;
+  const renderPrints = () => {
+    const list = PR.items.filter(p => !shopTag || p.tag === shopTag), pages = Math.ceil(list.length / PER);
+    shopPage = Math.min(shopPage, Math.max(0, pages - 1));
+    $('#shopGrid').innerHTML = list.slice(shopPage * PER, shopPage * PER + PER).map((p, i) => printCard(p, i)).join('');
+    $('#shopPages').innerHTML = pages < 2 ? '' :
+      `<button data-page="${shopPage - 1}" ${shopPage ? '' : 'disabled'} aria-label="Previous page">←</button>` +
+      Array.from({ length: pages }, (_, k) => `<button data-page="${k}" class="${k === shopPage ? 'is-on' : ''}" aria-label="Page ${k + 1}">${k + 1}</button>`).join('') +
+      `<button data-page="${shopPage + 1}" ${shopPage < pages - 1 ? '' : 'disabled'} aria-label="Next page">→</button>`;
+    window.ScrollTrigger?.refresh();
+  };
+  $('#shopToggleN').textContent = PR.items.length;
+  $('#shopToggle').addEventListener('click', () => {
+    const open = $('#shopDrawer').hidden;
+    $('#shopDrawer').hidden = !open; $('#shopToggle').setAttribute('aria-expanded', open);
+    $('#shopToggleLabel').textContent = open ? 'Hide the prints' : 'Show the prints';
+    if (open) renderPrints(); else window.ScrollTrigger?.refresh();
+  });
   $('#shopFilters').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     $$('#shopFilters button').forEach(x => x.classList.toggle('is-on', x === b));
-    const tag = b.dataset.tag;
-    let d = 0;
-    $$('#shopGrid .print').forEach(li => {
-      const out = !!tag && li.dataset.tag !== tag;
-      li.classList.toggle('is-out', out); li.classList.remove('pop');
-      if (!out) { li.style.setProperty('--d', Math.min(d++, 30)); void li.offsetWidth; li.classList.add('pop'); }
-    });
-    window.ScrollTrigger?.refresh();
+    shopTag = b.dataset.tag; shopPage = 0; renderPrints();
+  });
+  $('#shopPages').addEventListener('click', e => {
+    const b = e.target.closest('button[data-page]'); if (!b || b.disabled) return;
+    shopPage = +b.dataset.page; renderPrints();
+    const top = $('#shopFilters').getBoundingClientRect().top + scrollY - 100;
+    lenis ? lenis.scrollTo(top) : scrollTo({ top, behavior: 'smooth' });
   });
 
-  /* ---------------- MaaMonth leaderboard (illustration) ---------------- */
-  // Six anonymous societies; every tick is a "morning" and the table re-sorts, like the daily email did.
-  const board = $('#board');
-  if (board) {
-    const teams = ['Uni A', 'Uni B', 'Uni C', 'Uni D', 'Uni E', 'Uni F'].map((n, i) => ({ n, v: 200 + i * 40, rank: i }));
-    board.innerHTML = teams.map(t => `<li><i></i><span>${t.n}</span><div class="bar"><span></span></div><b></b></li>`).join('');
-    const rows = [...board.children];
-    let day = 1, timer = null;
-    const draw = () => {
-      const sorted = [...teams].sort((a, b) => b.v - a.v), top = sorted[0].v;
-      sorted.forEach((t, r) => {
-        const li = rows[teams.indexOf(t)];
-        li.classList.toggle('up', r < t.rank); li.classList.toggle('down', r > t.rank); t.rank = r;
-        li.style.transform = `translateY(${r * 44}px)`;
-        li.querySelector('i').textContent = r + 1;
-        li.querySelector('.bar span').style.width = (t.v / top * 100) + '%';
-        li.querySelector('b').textContent = '£' + Math.round(t.v * 10).toLocaleString();
-      });
-      $('#boardDay').textContent = day;
+  /* ---------------- Hello, in every language I can at least say hello in ---------------- */
+  const HELLO = [['Hello', 'English'], ['As-salamu alaykum', 'Arabic'], ['Hola', 'Spanish'], ['কেমন আছেন?', 'Bangla'], ['Bonjour', 'French'],
+    ['你好', 'Mandarin'], ['안녕하세요', 'Korean'], ['สวัสดี', 'Thai'], ['नमस्ते', 'Hindi'], ['آداب', 'Urdu'], ['வணக்கம்', 'Tamil'], ['Bok', 'Croatian'],
+    ['Ciao', 'Italian'], ['Olá', 'Portuguese'], ['Γειά σου', 'Greek'], ['Moien', 'Luxembourgish'], ['Merhaba', 'Turkish'], ['Apa khabar', 'Malay'],
+    ['Halo', 'Indonesian'], ['Om Swastiastu', 'Balinese'], ['Ndewo', 'Igbo'], ['કેમ છો', 'Gujarati'], ['Hallo', 'German']];
+  const say = $('#helloSay'), lang = $('#helloLang');
+  if (say && !reducedMotion()) {
+    let h = 0, timer = null;
+    const swap = () => {
+      h = (h + 1) % HELLO.length;
+      gsap.to([say, lang], { yPercent: -60, opacity: 0, duration: .35, ease: 'power2.in', onComplete: () => {
+        say.textContent = HELLO[h][0]; lang.textContent = HELLO[h][1];
+        gsap.fromTo([say, lang], { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .55, ease: 'expo.out', stagger: .05 });
+      } });
     };
-    const tick = () => {
-      day = day % 28 + 1;
-      if (day === 1) teams.forEach((t, i) => (t.v = 200 + i * 40));
-      else teams.forEach(t => (t.v += 20 + Math.random() * (t.rank > 2 ? 120 : 70))); // the ones behind push harder
-      draw();
-    };
-    draw();
-    if (!reduced) new IntersectionObserver(([e]) => { clearInterval(timer); if (e.isIntersecting) timer = setInterval(tick, 1600); }).observe(board);
+    new IntersectionObserver(([e]) => { clearInterval(timer); if (e.isIntersecting) timer = setInterval(swap, 1700); }).observe(say);
   }
 
   /* ---------------- WebGL flowing gradient ---------------- */
@@ -324,7 +334,25 @@
 
   /* ---------------- Nav: hide on scroll down, active section ---------------- */
   const nav = $('#nav'); let lastY = 0;
+  // Mobile wayfinding: a progress bar along the top and a pill naming the section you're in
+  const whereSecs = $$('main .label.mono').map(l => ({ el: l.closest('section'), num: l.querySelector('span').textContent.replace(/[()]/g, ''), name: l.textContent.replace(/\(\d+\)/, '').trim() })).filter(s => s.el);
+  const wherePill = $('#wherePill'), whereBar = $('#whereBar'), whereFill = $('#whereFill');
+  $('#wherePill em').textContent = '/ ' + String(whereSecs.length).padStart(2, '0');
+  let whereAt = -1;
+  const where = y => {
+    if (innerWidth > 860) return;
+    const p = Math.min(1, Math.max(0, y / (document.documentElement.scrollHeight - innerHeight)));
+    whereBar.style.transform = `scaleX(${p})`; whereFill.style.strokeDashoffset = 1 - p;
+    let i = -1; whereSecs.forEach((s, k) => { if (s.el.getBoundingClientRect().top < innerHeight * .5) i = k; });
+    wherePill.classList.toggle('on', i >= 0 && !menuOpen);
+    if (i >= 0 && i !== whereAt) {
+      whereAt = i; $('#whereNum').textContent = whereSecs[i].num; $('#whereName').textContent = whereSecs[i].name;
+      window.gsap && gsap.fromTo('#whereName', { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .45, ease: 'expo.out' });
+    }
+  };
+  wherePill.addEventListener('click', () => setMenu(true));
   const onScroll = y => {
+    where(y);
     nav.classList.toggle('is-scrolled', y > 40);
     nav.classList.toggle('is-hidden', y > lastY && y > 400 && !menuOpen);
     lastY = y;
@@ -343,6 +371,7 @@
     menuOpen = open; menu.classList.toggle('open', open);
     burger.setAttribute('aria-expanded', open); menu.setAttribute('aria-hidden', !open);
     open ? lenis?.stop() : lenis?.start();
+    wherePill.classList.toggle('on', !open && whereAt >= 0);
   };
   burger.addEventListener('click', () => setMenu(!menuOpen));
   $$('#menu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
@@ -386,12 +415,18 @@
     const i = P.findIndex(p => p.slug === slug);
     if (i < 0) return;
     const p = P[i]; current = i;
+    // Case studies: the overlay becomes the full case study page, with just the close button on top
+    const frame = $('#ovFrame');
+    overlay.classList.toggle('is-story', !!p.story);
+    if (p.story) { if (!frame.src.endsWith(p.story)) frame.src = p.story; cursor && (cursor.style.opacity = 0); }
+    else if (frame.src) frame.removeAttribute('src');
     panel.style.setProperty('--c1', p.colors[0]); panel.style.setProperty('--c2', p.colors[1]);
     $('#ovIdx').textContent = pad(i + 1); $('#ovCat').textContent = p.cat; $('#ovYear').textContent = p.year ? ' / ' + p.year : '';
     $('#ovTitle').textContent = p.title;
     $('#ovText').innerHTML = `<p class="tagline">${p.tagline}</p>` + p.text.map(t => `<p>${t}</p>`).join('');
     $('#ovMedia').innerHTML = (p.video ? filmTag(p, true) : '') + p.images.map(n => `<img src="${img(n)}" alt="${p.title}" loading="lazy" />`).join('');
     $('#ovNextTitle').textContent = P[(i + 1) % P.length].title;
+    requestAnimationFrame(() => $('#ovText').classList.toggle('is-tall', $('#ovText').offsetHeight > innerHeight - 120)); // too tall to stick: scroll with the panel
     panel.scrollTop = 0;
     if (!overlay.classList.contains('open')) {
       lastFocus = document.activeElement;
@@ -399,6 +434,7 @@
       lenis?.stop(); document.body.style.overflow = 'hidden';
       setTimeout(() => $('#ovClose').focus({ preventScroll: true }), 50);
     }
+    if (p.story) { if (push) history.pushState({ slug }, '', '#/work/' + slug); return; }
     if (hasGsap && !reduced) {
       gsap.fromTo('#ovTitle', { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1, ease: 'expo.out', delay: .15 });
       gsap.fromTo('#ovMedia img, #ovText > *', { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'expo.out', stagger: .06, delay: .25 });
@@ -409,6 +445,8 @@
     if (!overlay.classList.contains('open')) return;
     overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true');
     lenis?.start(); document.body.style.overflow = '';
+    if (cursor) cursor.style.opacity = '';
+    setTimeout(() => { if (!overlay.classList.contains('open')) { $('#ovFrame').removeAttribute('src'); overlay.classList.remove('is-story'); } }, 900);
     cursor?.classList.remove('is-view', 'is-hover');
     lastFocus?.focus?.({ preventScroll: true });
     if (push) history.pushState({}, '', location.pathname + location.search);
@@ -425,6 +463,7 @@
   addEventListener('keydown', e => {
     if (!overlay.classList.contains('open')) return;
     if (e.key === 'Escape') closeProject();
+    if (overlay.classList.contains('is-story')) return;
     if (e.key === 'ArrowRight') $('#ovNext').click();
     if (e.key === 'ArrowLeft') $('#ovPrev').click();
   });
@@ -432,6 +471,7 @@
     const m = location.hash.match(/^#\/work\/([\w-]+)/);
     m ? openProject(m[1], false) : closeProject(false);
   };
+  addEventListener('message', e => { if (e.origin === location.origin && e.data === 'close-story') closeProject(); });
   addEventListener('popstate', route);
   addEventListener('hashchange', route);
 
@@ -455,7 +495,7 @@
   gsap.set('.hero__title .char', { yPercent: 115 });
   gsap.set('.hero__role > *', { y: 40, opacity: 0 });
 
-  const words = $$('.loader__words span'); const counter = { v: 0 };
+  const counter = { v: 0 };
   const intro = gsap.timeline({ defaults: { ease: 'expo.out' } });
   intro
     .add(window.Wordmark.intro($('.loader [data-wordmark]')).timeScale(reduced ? 8 : 1), 0)
@@ -463,7 +503,6 @@
       v: 100, duration: reduced ? .2 : 2.6, ease: 'power2.inOut',
       onUpdate() {
         $('#loaderCount').textContent = String(Math.round(counter.v)).padStart(3, '0');
-        words.forEach((w, i) => w.classList.toggle('on', counter.v >= i * 34));
       }
     }, 0)
     .to(loader, { clipPath: 'inset(0 0 100% 0)', duration: 1.1, ease: 'expo.inOut' }, '+=.15')
@@ -502,8 +541,11 @@
   });
 
   // Generic reveals
-  $$('.about__copy p, .chips, .label, .display, .cap, .now__card, .status, .index__head, .maa, .bcard, .honours li').forEach(el => {
+  $$('.about__copy p, .chips, .label, .display, .cap, .now__card, .status, .index__head, .also__card').forEach(el => {
     gsap.from(el, { y: 60, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+  });
+  $$('.fact').forEach((el, i) => {
+    gsap.from(el, { y: 90, rotation: i % 2 ? 7 : -7, scale: .9, opacity: 0, duration: 1.3, ease: 'back.out(1.5)', scrollTrigger: { trigger: el, start: 'top 90%' } });
   });
   gsap.from('.about__portrait', { clipPath: 'inset(100% 0 0 0)', scale: 1.15, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: '.about', start: 'top 80%' } });
   gsap.from('.index__item', { y: 40, opacity: 0, duration: 1, ease: 'expo.out', stagger: .05, scrollTrigger: { trigger: '.index__list', start: 'top 85%' } });
@@ -527,46 +569,17 @@
     onEnter: els => gsap.from(els, { y: 80, opacity: 0, rotate: () => gsap.utils.random(-4, 4), duration: 1.2, ease: 'expo.out', stagger: .07 })
   });
 
-  // Workshop: count up, bars grow, prints drop onto the bed
+  // Workshop: count up, bars grow
   $$('#shopStats dd').forEach(dd => {
     const o = { v: 0 }, to = +dd.dataset.count;
     gsap.to(o, { v: to, duration: 2, ease: 'power3.out', scrollTrigger: { trigger: '#shopStats', start: 'top 85%' }, onUpdate: () => (dd.textContent = Math.round(o.v)) });
   });
   gsap.from('#shopBars span', { scaleY: 0, duration: 1.2, ease: 'expo.out', stagger: .04, scrollTrigger: { trigger: '#shopBars', start: 'top 90%' } });
-  ScrollTrigger.batch('#shopGrid .print', {
-    start: 'top 95%', once: true,
-    onEnter: els => { els.forEach(el => el.classList.add('is-dropping')); gsap.from(els, { y: -30, scale: .85, opacity: 0, duration: .9, ease: 'back.out(1.6)', stagger: .025, clearProps: 'transform,opacity', onComplete: () => els.forEach(el => el.classList.remove('is-dropping')) }); }
-  });
 
-  // Featured work: pinned horizontal scroll on desktop
-  const mm = gsap.matchMedia();
-  mm.add('(min-width: 861px)', () => {
-    const dist = () => track.scrollWidth - innerWidth;
-    const tween = gsap.to(track, {
-      x: () => -dist(), ease: 'none',
-      scrollTrigger: { trigger: '.work', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 }
-    });
-    $$('.feature__img img', track).forEach(im => {
-      gsap.fromTo(im, { xPercent: -2.5 }, { xPercent: 2.5, ease: 'none', scrollTrigger: { trigger: im.closest('.feature'), containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
-    });
-    // Sideways trackpad swipes (and shift + wheel) move the gallery too: while it's pinned, horizontal
-    // wheel movement becomes page scroll, which is what drives the track. At either end it's let through.
-    const st = tween.scrollTrigger;
-    const onWheel = e => {
-      const dx = e.shiftKey && !e.deltaX ? e.deltaY : e.deltaX;
-      if (Math.abs(dx) <= Math.abs(e.shiftKey ? 0 : e.deltaY)) return;
-      const y = lenis ? lenis.targetScroll : scrollY;
-      if ((dx < 0 && y <= st.start + 1) || (dx > 0 && y >= st.end - 1)) return;
-      e.preventDefault();
-      const to = Math.min(st.end, Math.max(st.start, y + dx * 1.2));
-      lenis ? lenis.scrollTo(to, { duration: .6 }) : scrollTo(0, to);
-    };
-    const work = $('.work');
-    work.addEventListener('wheel', onWheel, { passive: false });
-    return () => work.removeEventListener('wheel', onWheel);
-  });
-  mm.add('(max-width: 860px)', () => {
-    $$('.feature', track).forEach(f => gsap.from(f, { y: 80, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: f, start: 'top 90%' } }));
+  // Featured work: a grid with every film playing; each row fades in level as it arrives
+  ScrollTrigger.batch($$('.feature', track), {
+    start: 'top 92%', once: true,
+    onEnter: els => gsap.from(els, { opacity: 0, duration: .8, ease: 'power2.out', clearProps: 'opacity' })
   });
 
   addEventListener('load', () => ScrollTrigger.refresh());
