@@ -5,7 +5,7 @@ window.PROJECTS = [
     tagline: 'A podcast I started, built and ran for four years.',
     colors: ['#131313', '#f7c933'],
     images: ['submissions-1', 'submissions-4', 'submissions-2', 'submissions-3'],
-    video: { src: 'assets/video/submissions.mp4', poster: 'assets/video/submissions-poster.webp', ar: '1' },
+    video: { src: 'assets/video/submissions.mp4', poster: 'assets/video/submissions-poster.webp', ar: '1', end: 8.9 },
     text: [
       '<a class="ov-cta" href="submissions.html">Read the full case study →</a>',
       'I created The Submissions Podcast in 2020 to share stories from Muslims, sent in as voicenotes by listeners. I put together a team of seven volunteers, found the storytellers and shaped the show, and designed everything it wore: the name’s logo, the episode cards and the team portraits.',
@@ -18,7 +18,7 @@ window.PROJECTS = [
     tagline: 'A shapla in bloom.',
     colors: ['#0c4d2e', '#d6293b'],
     images: ['kcl-bsoc-1'],
-    video: { src: 'assets/video/kcl-bsoc.mp4', poster: 'assets/video/kcl-bsoc-poster.webp', ar: '1' },
+    video: { src: 'assets/video/kcl-bsoc.mp4', poster: 'assets/video/kcl-bsoc-poster.webp', ar: '1', end: 11.1 },
     text: [
       '<a class="ov-cta" href="bsoc.html">Read the full case study →</a>',
       'I was president of King’s College London Bangladesh Society from September 2019 to August 2020, and redrew its logo that year.',
@@ -31,7 +31,7 @@ window.PROJECTS = [
     tagline: 'Five leaves, one stem.',
     colors: ['#2c3b2d', '#5f7d5c'],
     images: ['odjo-1'],
-    video: { src: 'assets/video/odjo.mp4', poster: 'assets/video/odjo-poster.webp', ar: '1' },
+    video: { src: 'assets/video/odjo.mp4', poster: 'assets/video/odjo-poster.webp', ar: '1', end: 9.3 },
     text: [
       '<a class="ov-cta" href="odjo.html">Read the full case study →</a>',
       'The identity for Odjo, the AI front desk I co-founded. A tree of five connected leaves growing from one stem, in forest green: many channels, tied back to one place.'
@@ -58,7 +58,7 @@ window.PROJECTS = [
     tagline: 'Plant care, personalised.',
     colors: ['#0f5c4c', '#1fa184'],
     images: ['eden-1', 'eden-2', 'eden-3'],
-    video: { src: 'assets/video/eden.mp4?v=2', poster: 'assets/video/eden-poster.webp?v=2', ar: '16/9' },
+    video: { src: 'assets/video/eden.mp4?v=2', poster: 'assets/video/eden-poster.webp?v=2', ar: '16/9', end: 14.0 },
     text: [
       'Eden was my first proper 3D project: a concept plant probe you push into the soil, modelled from scratch.',
       'It checks five things (water, temperature, light, pH and nutrients) and sends them to your phone over Bluetooth. On paper it’s waterproof to IP68 and the battery lasts four months.',
@@ -70,7 +70,7 @@ window.PROJECTS = [
     tagline: 'A logo for a friend’s Substack.',
     colors: ['#0a2b18', '#2f6b45'],
     images: ['mind-ink-1'],
-    video: { src: 'assets/video/mind-ink.mp4', poster: 'assets/video/mind-ink-poster.webp', ar: '1' },
+    video: { src: 'assets/video/mind-ink.mp4', poster: 'assets/video/mind-ink-poster.webp', ar: '1', end: 8.5 },
     text: [
       'My friend Arslan writes Mind Ink, a Substack he describes as “thinking at a mild volume about the world and the human experience”. It now has more than a thousand subscribers.',
       'I designed its logo: a stacked serif wordmark in cream on deep green, with a quill beside it. The quill’s nib comes down to the baseline, as if the name has just been written.',
@@ -82,7 +82,7 @@ window.PROJECTS = [
     tagline: 'An i like a minaret, with a crescent for its dot.',
     colors: ['#20263E', '#24499C'],
     images: ['mipp-1', 'mipp-2', 'mipp-3', 'mipp-4'],
-    video: { src: 'assets/video/mipp.mp4', poster: 'assets/video/mipp-poster.webp', ar: '4/3' },
+    video: { src: 'assets/video/mipp.mp4', poster: 'assets/video/mipp-poster.webp', ar: '4/3', end: 10.9 },
     text: [
       'MIPP, Muslims in Public Policy, is my friend Irfan’s idea. When he applied to the civil service he really wanted mentorship and role models, so he set out to create that himself: a community for Muslims working together in public policy.',
       'On 19 February 2022 he was staying over at mine before our early-morning flight to Morocco, and said: let’s brainstorm for this idea I have. It was meant to be a quick, fun logo session. We stayed up for ages, and by the time we left for the airport it had its visual identity.',
@@ -97,7 +97,7 @@ window.PROJECTS = [
     tagline: 'A DNA strand made of circuit traces.',
     colors: ['#0b2a52', '#1a6ed8'],
     images: ['kings-medtech-1'],
-    video: { src: 'assets/video/kings-medtech.mp4', poster: 'assets/video/kings-medtech-poster.webp', ar: '1' },
+    video: { src: 'assets/video/kings-medtech.mp4', poster: 'assets/video/kings-medtech-poster.webp', ar: '1', end: 9.7 },
     text: [
       'A logo for the KCL Medical Technology Society. Everything is drawn from scratch. The DNA strand is built from circuit-board traces, a nod to genetic engineering.',
       'The outer shape is deliberately uneven, as if technology is pushing at the edges of medicine.'
@@ -108,7 +108,7 @@ window.PROJECTS = [
     tagline: 'A new look for a vegetarian caterer.',
     colors: ['#6e0b38', '#a3164f'],
     images: ['keshavs-caterers-1'],
-    video: { src: 'assets/video/keshavs-caterers.mp4', poster: 'assets/video/keshavs-caterers-poster.webp', ar: '1' },
+    video: { src: 'assets/video/keshavs-caterers.mp4', poster: 'assets/video/keshavs-caterers-poster.webp', ar: '1', end: 9.6 },
     text: [
       'A rebrand for a vegetarian catering company that needed something more modern. The wordmark pairs a serif with Devanagari.',
       'The symmetrical shape behind the type is drawn by hand, a little like the patterns you see at weddings.'

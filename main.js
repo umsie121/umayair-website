@@ -14,7 +14,11 @@
   const pad = n => String(n).padStart(2, '0');
   const img = name => `assets/work/${name}.webp`;
   // A project film: muted, looping, buffered up front so it's already moving when you reach it.
-  const filmTag = (p, controls) => `<video src="${p.video.src}" poster="${p.video.poster}" ${reducedMotion() ? '' : 'autoplay'} muted loop playsinline preload="auto"${controls ? ' controls' : ''} aria-label="${p.title} film"></video>`;
+  // In the overlay it loops with controls; in the grid it plays once when it comes into view and
+  // stops on the finished logo (end), just before the film's loop-back fade.
+  const filmTag = (p, controls) => controls
+    ? `<video src="${p.video.src}" poster="${p.video.poster}" ${reducedMotion() ? '' : 'autoplay'} muted loop playsinline preload="auto" controls aria-label="${p.title} film"></video>`
+    : `<video src="${p.video.src}" poster="${p.video.poster}" muted playsinline preload="auto"${p.video.end ? ` data-end="${p.video.end}"` : ''} aria-label="${p.title} film"></video>`;
   function reducedMotion() { return matchMedia('(prefers-reduced-motion: reduce)').matches; }
 
   /* ---------------- Text splitting ---------------- */
@@ -60,6 +64,26 @@
       <h3>That's the <span class="serif-i grad-text">highlights.</span></h3>
       <a href="#index" class="btn magnetic" data-cursor="hover"><span>See the rest ↓</span></a>
     </div>`;
+
+  // Grid films: play through once on first sight, then hold on the logo
+  const films = new Map();
+  const playOnce = v => {
+    if (films.has(v)) return films.get(v).go();
+    const end = +v.dataset.end || Infinity, s = { held: false, seen: false };
+    const stop = () => { s.held = true; v.pause(); v.currentTime = end; };
+    const watch = () => { if (s.held) return; if (v.currentTime >= end - .04) return stop(); v.requestVideoFrameCallback ? v.requestVideoFrameCallback(watch) : setTimeout(watch, 40); };
+    s.go = () => { if (!s.held && v.paused) v.play().then(watch).catch(() => {}); };
+    // Chrome sometimes cuts off one of several films starting together; pick it back up while it's on screen
+    v.addEventListener('pause', () => setTimeout(() => s.seen && s.go(), 500));
+    v.addEventListener('ended', () => (s.held = true));
+    films.set(v, s); s.seen = true; s.go();
+  };
+  const filmIO = new IntersectionObserver(es => es.forEach(e => {
+    const s = films.get(e.target);
+    if (s) s.seen = e.isIntersecting;
+    if (e.isIntersecting) playOnce(e.target);
+  }), { threshold: .4 });
+  if (!reducedMotion()) $$('video', track).forEach(v => filmIO.observe(v));
 
   // Size each frame to its artwork's own proportions so logos are never cropped.
   $$('.feature__img img', track).forEach(im => {
